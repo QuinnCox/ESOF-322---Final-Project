@@ -5,7 +5,7 @@ A Repository Containing all Recourses for ESOF 322 Final Project
 ## Project Proposal:
 
 ## Requirements: <br>
- ## Functional: <br>
+ ### Functional: <br>
  User should be able to answer questions.<br>
  User can make quiz/questions.<br>
  System should track quiz scores.<br>
@@ -19,7 +19,7 @@ A Repository Containing all Recourses for ESOF 322 Final Project
  Randomize order questions and order of answers.<br>
  System has a small chance to add a random "fun" question.<br>
  
- ## Nonfunctional:<br>
+ ### Nonfunctional:<br>
  The app must have an intuitive and user-friendly interface.<br>
  The scoring system must process results in real-time.<br>
  System should be able to handle.<br>
