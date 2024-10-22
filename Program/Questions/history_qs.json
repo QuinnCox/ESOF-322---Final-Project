@@ -1,0 +1,19 @@
+{
+    "questions": [
+      {
+        "question": "Who was the first President of the United States?",
+        "options": ["George Washington", "Abraham Lincoln", "Thomas Jefferson", "John Adams"],
+        "correct_answer": "George Washington"
+      },
+      {
+        "question": "What year did World War II end?",
+        "options": ["1941", "1945", "1950", "1939"],
+        "correct_answer": "1945"
+      },
+      {
+        "question": "Which ancient civilization built the pyramids?",
+        "options": ["Romans", "Greeks", "Egyptians", "Mayans"],
+        "correct_answer": "Egyptians"
+      }
+    ]
+  }

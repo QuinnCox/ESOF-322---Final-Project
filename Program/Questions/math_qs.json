@@ -1,0 +1,19 @@
+{
+    "questions": [
+        {
+            "question" : "What is 1 + 1", 
+            "answers": [2,3,4,5],
+            "correct_answer" : 2
+        },
+        {
+            "question" : "What is 2 * 4", 
+            "answers": [3,6,8,12],
+            "correct_answer" : 8
+        },
+        {
+            "question" : "What is 7 - 3", 
+            "answers": [5,4,2,6],
+            "correct_answer" : 4
+        }
+    ]
+}
