@@ -1,2 +1,3 @@
 
-Link to [ERD](https://lucid.app/lucidspark/d77b272c-dd34-49e9-b894-b78f8a3007e6/edit?view_items=KPGk8DbM8nPq%2CKPGkvFttEeg~%2CKPGknoI8BBZ0%2CKPGkDFmZC8Hy%2CKPGkyysa9CQb%2CKPGkvPrXYQGf%2CKPGk22gmXW1~%2CKPGkXJymq6KU%2CKPGkf7_-UCSl%2CKPGkPhwHglbU%2CKPGk.zOysE_d%2CKPGkigo8MrFk%2CKPGk49Sn2dKD%2CKPGkM.9~oNAR%2CKPGk-crezieS%2CKPGk_PP~G-Sd%2CKPGkAoEY4QFG%2CKPGkEEc654AG%2CKPGkTGXGE-9a%2CKPGk1yOx36Zj%2CKPGkfQeG5tkq%2CKPGkI3jO~Oo9%2CKPGkjEXgtRA6%2CKPGkXHrMAwDp%2CKPGkOQTK37hP%2CKPGkYg~nJvzU%2CKPGkQRsYO2cU%2CKPGkS.akt7cK%2CKPGka.WZFNjv%2CKPGktXffo_NZ%2CKPGkeCIKoXL_%2CKPGkxobv69i2%2CKPGkQFb-1JA8&invitationId=inv_984befd2-5459-49eb-8236-bfddc6d1c1f3)
+Link to [ERD](https://lucid.app/lucidspark/d77b272c-dd34-49e9-b894-b78f8a3007e6/edit?invitationId=inv_984befd2-5459-49eb-8236-bfddc6d1c1f3)
+
