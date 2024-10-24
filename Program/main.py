@@ -9,10 +9,10 @@ from colors import colors
 # Define constants for different game states
 MAIN_MENU = 'main_menu'
 QUIZ_SELECTION = 'quiz_selection'
+SCOREBOARD = 'scoreboard'
 EXIT = 'exit'
 
 def main_menu_loop(screen):
-    print("Main Menu")
     running = True
     clock = pygame.time.Clock()
 
@@ -29,7 +29,8 @@ def main_menu_loop(screen):
                     mouse_pos = event.pos
                     
                     # Check if the button is pressed
-                    if main_menu.on_questions_click():
+                    if main_menu.on_question_btn_click(event):
+                        screen.fill(colors['WHITE'])
                         return QUIZ_SELECTION
             
         # Insert game logic here
@@ -43,7 +44,6 @@ def main_menu_loop(screen):
         clock.tick(60)
 
 def quiz_selection_loop(screen):
-    print("Quiz Selection")
     running = True
     clock = pygame.time.Clock()
 
@@ -60,8 +60,10 @@ def quiz_selection_loop(screen):
                     mouse_pos = event.pos
                     
                     # Check if the button is pressed
-                    if quiz_selec_menu.on_main_menu_click():
+                    if quiz_selec_menu.on_main_menu_click(event):
+                        screen.fill(colors['WHITE'])
                         return MAIN_MENU
+
 
         # Insert game logic here
 

@@ -7,7 +7,7 @@ class Button:
         self.inactive_color = inactive_color
         self.active_color = active_color
         self.action = action  # This is the function to call when the button is clicked
-        self.font = pygame.font.Font(None, 40)
+        self.font = pygame.font.SysFont('Comic-Sans', 40)
         self.is_hovered = False
 
     def draw(self, screen):
@@ -27,9 +27,7 @@ class Button:
         # Check if the event is a mouse click
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  # Left-click is button 1
             if self.rect.collidepoint(event.pos):  # Check if the click is inside the button rect
-                if self.action:
-                    self.action()  
-                    # Call the action function
+                return True
 
     def check_hover(self, mouse_pos):
         # Check if the mouse is hovering over the button
