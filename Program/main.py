@@ -32,6 +32,10 @@ def main_menu_loop(screen):
                     if main_menu.on_question_btn_click(event):
                         screen.fill(colors['WHITE'])
                         return QUIZ_SELECTION
+                    
+                    elif main_menu.on_scoreboard_btn_click(event):
+                        screen.fill(colors['WHITE'])
+                        return SCOREBOARD
             
         # Insert game logic here
         
@@ -74,6 +78,38 @@ def quiz_selection_loop(screen):
         # Control the frame rate
         clock.tick(60)
 
+def scoreboard_loop(screen):
+    print("scoreboard")
+    running = True
+    clock = pygame.time.Clock()
+
+    scoreboard_menu = menus.Scoreboard_Menu(screen)
+
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return EXIT  # Exit the game
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:  # Left mouse button
+                    # Get the mouse position when clicked
+                    mouse_pos = event.pos
+                    
+                    # Check if the button is pressed
+                    if scoreboard_menu.on_main_menu_click(event):
+                        screen.fill(colors['WHITE'])
+                        return MAIN_MENU
+
+
+        # Insert game logic here
+
+        # Update the display
+        scoreboard_menu.draw()
+        pygame.display.flip()
+
+        # Control the frame rate
+        clock.tick(60)
+
 def main():
     pygame.init()
     screen = pygame.display.set_mode((1280, 720))
@@ -86,7 +122,9 @@ def main():
         if game_state == MAIN_MENU:
             game_state = main_menu_loop(screen)  # Run the main menu loop
         elif game_state == QUIZ_SELECTION:
-            game_state = quiz_selection_loop(screen)  # Run the gameplay loop
+            game_state = quiz_selection_loop(screen)  # Run the quiz selection loop
+        elif game_state == SCOREBOARD:
+            game_state = scoreboard_loop(screen)  # Run the scoreboard loop
 
     pygame.quit()
 

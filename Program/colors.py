@@ -16,7 +16,10 @@ colors = {
     'DARK_GREEN': (0, 100, 0),
     'LIGHT_GRAY': (211, 211, 211),
     'DARK_GRAY': (169, 169, 169),
+    
+    # Dark colors
     'DARK_RED': (139, 0, 0),
+    'DARK_BLUE': (0, 0, 139),
     'DARK_CYAN': (0, 139, 139),
     'DARK_MAGENTA': (139, 0, 139),
     'DARK_YELLOW_OLIVE': (85, 85, 0),
@@ -32,5 +35,27 @@ colors = {
     'DARK_SALMON': (233, 150, 122),
     'DARK_ORCHID': (153, 50, 204),
     'DARK_GOLDENROD': (184, 134, 11),
-    'DARK_SLATE_BLUE': (72, 61, 139)
+    'DARK_SLATE_BLUE': (72, 61, 139),
+
+    # New light colors added
+    'LIGHT_RED': (255, 204, 203),
+    'LIGHT_GREEN': (204, 255, 204),
+    'LIGHT_BLUE': (173, 216, 230),
+    'LIGHT_YELLOW': (255, 255, 204),
+    'LIGHT_CYAN': (224, 255, 255),
+    'LIGHT_MAGENTA': (255, 182, 193),
+    'LIGHT_GRAY': (211, 211, 211),
+    'LIGHT_ORANGE': (255, 200, 124),
+    'LIGHT_PURPLE': (221, 160, 221),
+    'LIGHT_BROWN': (181, 101, 29),
+    'LIGHT_PINK': (255, 182, 193),
+    'LIGHT_SLATE_GRAY': (119, 136, 153),
+    'LIGHT_CORAL': (240, 128, 128),
+    'LIGHT_SALMON': (255, 160, 122),
+    'LIGHT_SEA_GREEN': (32, 178, 170),
+    'LIGHT_SKY_BLUE': (135, 206, 250),
+    'LIGHT_STEEL_BLUE': (176, 196, 222),
+    'LIGHT_GOLDENROD': (250, 250, 210),
+    'LIGHT_KHAKI': (240, 230, 140),
+    'LIGHT_TURQUOISE': (175, 238, 238)
 }
