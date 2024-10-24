@@ -12,6 +12,7 @@ class Button:
 
     def draw(self, screen):
         # Change color if hovered
+        self.check_hover(pygame.mouse.get_pos())
         current_color = self.active_color if self.is_hovered else self.inactive_color
         
         # Draw the button
@@ -27,7 +28,8 @@ class Button:
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  # Left-click is button 1
             if self.rect.collidepoint(event.pos):  # Check if the click is inside the button rect
                 if self.action:
-                    self.action()  # Call the action function
+                    self.action()  
+                    # Call the action function
 
     def check_hover(self, mouse_pos):
         # Check if the mouse is hovering over the button
