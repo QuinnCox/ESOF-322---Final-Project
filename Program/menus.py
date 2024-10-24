@@ -9,10 +9,39 @@ class Menu:
 
     
 class Main_Menu(Menu):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, screen):
+        super().__init__(screen)
+        
+        # color backgounrd
+        screen.fill(colors['LIGHT_GRAY'])
 
-        self.questions_btn = buttons.Button("QUESTIONS",300, 250, 200, 100, colors['GREEN'], colors['DARK_GREEN'])
-        self.questions_btn.draw()
+        self.title_font = pygame.font.Font(None, 60)  # 60 is the font size
+        self.title_text = self.title_font.render("QUIZ BEAST", True, colors['WHITE'])  # Render the title text
+        
+        # Create a large rectangle header that spans the top of the screen
+        self.header_rect = pygame.Rect(0, 0, screen.get_width(), 100)  # Spans full width and 100px high
 
+        self.questions_btn = buttons.Button("QUIZ'S",540, 310, 200, 100, colors['GREEN'], colors['DARK_GREEN'], self.on_questions_click)
+        
+    
+    def draw(self):
+        # Draw the header rectangle
+        pygame.draw.rect(self.menu_screen, colors['BLACK'], self.header_rect)  # Assuming you have a HEADER_COLOR defined
+
+        # Center the title text in the header
+        title_rect = self.title_text.get_rect(center=(self.menu_screen.get_width() // 2, self.header_rect.height // 2))
+        self.menu_screen.blit(self.title_text, title_rect)
+
+        self.questions_btn.draw(self.menu_screen)
+
+    def handle_event(self, event):
+            # Pass the event to the button to handle clicks
+            self.questions_btn.handle_event(event)
+
+    def on_questions_click(self):
+        print("Questions button clicked!")
+
+class Quiz_Menu(Menu):
+     def __init__(self, screen):
+          pass
 

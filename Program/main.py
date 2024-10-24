@@ -6,6 +6,10 @@ import json
 import menus
 from colors import colors
 
+# game states
+MAIN_MENU = "main_menu"
+EXIT = "exit"
+
 def get_db_info():
     pass
 
@@ -25,10 +29,13 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
 
+            main_menu.handle_event(event)
+
         # fill the screen with a color to wipe away anything from last frame
-        screen.fill(colors['LIGHT_GRAY'])
+        
 
         # RENDER YOUR GAME HERE
+        main_menu.draw()
 
         # flip() the display to put your work on screen
         pygame.display.update()

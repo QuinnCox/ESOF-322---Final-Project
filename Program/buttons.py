@@ -1,33 +1,38 @@
-# button.py
 import pygame
 
 class Button:
     def __init__(self, text, x, y, width, height, inactive_color, active_color, action=None):
         self.text = text
-        self.x = x
-        self.y = y
-        self.width = width
-        self.height = height
+        self.rect = pygame.Rect(x, y, width, height)  # Use Rect for easier collision checking
         self.inactive_color = inactive_color
         self.active_color = active_color
-        self.action = action  # Action is a function to call when button is clicked
-
-        # Set up font for text on button
-        self.font = pygame.font.SysFont(None, 40)
+        self.action = action  # This is the function to call when the button is clicked
+        self.font = pygame.font.Font(None, 40)
+        self.is_hovered = False
 
     def draw(self, screen):
-        mouse = pygame.mouse.get_pos()  # Get mouse position
-        click = pygame.mouse.get_pressed()  # Get mouse click state
-
-        # Check if mouse is over the button
-        if self.x + self.width > mouse[0] > self.x and self.y + self.height > mouse[1] > self.y:
-            pygame.draw.rect(screen, self.active_color, (self.x, self.y, self.width, self.height))
-            if click[0] == 1 and self.action:  # If left click and action is defined
-                self.action()
-        else:
-            pygame.draw.rect(screen, self.inactive_color, (self.x, self.y, self.width, self.height))
-
-        # Render text on button
+        # Change color if hovered
+        current_color = self.active_color if self.is_hovered else self.inactive_color
+        
+        # Draw the button
+        pygame.draw.rect(screen, current_color, self.rect)
+        
+        # Render and center the text
         text_surface = self.font.render(self.text, True, (0, 0, 0))
-        text_rect = text_surface.get_rect(center=(self.x + self.width / 2, self.y + self.height / 2))
+        text_rect = text_surface.get_rect(center=self.rect.center)
         screen.blit(text_surface, text_rect)
+
+    def handle_event(self, event):
+        # Check if the event is a mouse click
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  # Left-click is button 1
+            if self.rect.collidepoint(event.pos):  # Check if the click is inside the button rect
+                if self.action:
+                    self.action()  # Call the action function
+
+    def check_hover(self, mouse_pos):
+        # Check if the mouse is hovering over the button
+        if self.rect.collidepoint(mouse_pos):
+            self.is_hovered = True
+        else:
+            self.is_hovered = False
+
