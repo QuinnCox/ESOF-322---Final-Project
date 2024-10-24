@@ -3,18 +3,13 @@ import buttons
 import inputs
 from colors import colors 
 
-# Define constants for different game states
-MAIN_MENU = 'main_menu'
-QUIZ_SELECTION = 'quiz_selection'
-EXIT = 'exit'
-
 class Menu:
     def __init__(self, screen):
         self.menu_screen = screen
 
     
 class Main_Menu(Menu):
-    def __init__(self, screen, action=None):
+    def __init__(self, screen):
         super().__init__(screen)
         
         # color backgounrd
@@ -45,11 +40,24 @@ class Main_Menu(Menu):
                     
 
     def on_questions_click(self):
-        #print("Questions button clicked!")
-        return QUIZ_SELECTION
+        return True
         
 
 class Quiz_Menu(Menu):
-     def __init__(self, screen):
-          pass
+    def __init__(self, screen):
+          super().__init__(screen)
+
+          screen.fill(colors['LIGHT_BLUE'])
+          self.main_menu_btn = buttons.Button("MENU",80, 600, 100, 50, colors['RED'], colors['DARK_RED'], self.on_main_menu_click)
+
+    def draw(self):
+        self.main_menu_btn.draw(self.menu_screen)
+        pass
+
+    def handle_event(self, event):
+        self.main_menu_btn.handle_event(event)
+        pass
+
+    def on_main_menu_click(self):
+        return True
 

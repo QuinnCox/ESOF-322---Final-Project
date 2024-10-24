@@ -1,6 +1,6 @@
 import pygame
-import pandas as pd
-import numpy as np
+#import pandas as pd
+#import numpy as np
 import os
 import json
 import menus
@@ -23,12 +23,20 @@ def main_menu_loop(screen):
             if event.type == pygame.QUIT:
                 return EXIT  # Exit the game
             
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:  # Left mouse button
+                    # Get the mouse position when clicked
+                    mouse_pos = event.pos
+                    
+                    # Check if the button is pressed
+                    if main_menu.on_questions_click():
+                        return QUIZ_SELECTION
             
-            
+        # Insert game logic here
         
-        main_menu.draw()
 
         # Update the display
+        main_menu.draw()
         pygame.display.flip()
 
         # Control the frame rate
@@ -39,17 +47,26 @@ def quiz_selection_loop(screen):
     running = True
     clock = pygame.time.Clock()
 
+    quiz_selec_menu = menus.Quiz_Menu(screen)
+
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return EXIT  # Exit the game
 
-        # Fill the screen with a different color (e.g., light blue for gameplay)
-        screen.fill((200, 200, 255))
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:  # Left mouse button
+                    # Get the mouse position when clicked
+                    mouse_pos = event.pos
+                    
+                    # Check if the button is pressed
+                    if quiz_selec_menu.on_main_menu_click():
+                        return MAIN_MENU
 
         # Insert game logic here
 
         # Update the display
+        quiz_selec_menu.draw()
         pygame.display.flip()
 
         # Control the frame rate
