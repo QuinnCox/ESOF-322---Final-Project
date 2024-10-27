@@ -1,0 +1,35 @@
+{
+  "title": "Chemistry Questions",
+  "questions": [
+    {
+      "question": "What is the atomic number of carbon?",
+      "answers": [
+        "6",
+        "8",
+        "12",
+        "14"
+      ],
+      "correct_answer": "6"
+    },
+    {
+      "question": "Which element is known as the 'King of Chemicals'?",
+      "answers": [
+        "Sulfuric Acid",
+        "Hydrochloric Acid",
+        "Sodium Chloride",
+        "Ethanol"
+      ],
+      "correct_answer": "Sulfuric Acid"
+    },
+    {
+      "question": "What is the chemical formula for table salt?",
+      "answers": [
+        "NaCl",
+        "KCl",
+        "CaCO3",
+        "H2SO4"
+      ],
+      "correct_answer": "NaCl"
+    }
+  ]
+}

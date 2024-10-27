@@ -1,0 +1,35 @@
+{
+  "title": "Psychology Questions",
+  "questions": [
+    {
+      "question": "Who is known as the father of psychoanalysis?",
+      "answers": [
+        "Sigmund Freud",
+        "Carl Jung",
+        "B.F. Skinner",
+        "Jean Piaget"
+      ],
+      "correct_answer": "Sigmund Freud"
+    },
+    {
+      "question": "What is the main focus of behaviorism?",
+      "answers": [
+        "Conscious thoughts",
+        "Behavior and reinforcement",
+        "Unconscious thoughts",
+        "Memory"
+      ],
+      "correct_answer": "Behavior and reinforcement"
+    },
+    {
+      "question": "What part of the brain is responsible for decision-making and personality?",
+      "answers": [
+        "Occipital lobe",
+        "Parietal lobe",
+        "Temporal lobe",
+        "Frontal lobe"
+      ],
+      "correct_answer": "Frontal lobe"
+    }
+  ]
+}

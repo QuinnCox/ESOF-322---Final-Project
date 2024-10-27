@@ -1,4 +1,5 @@
 import pygame
+from colors import colors
 
 class Button:
     def __init__(self, text, x, y, width, height, inactive_color, active_color, action=None):
@@ -21,6 +22,15 @@ class Button:
         # Render and center the text
         text_surface = self.font.render(self.text, True, (0, 0, 0))
         text_rect = text_surface.get_rect(center=self.rect.center)
+        screen.blit(text_surface, text_rect)
+
+    def scroll_draw(self, screen, offset_y=0):
+        # Adjust the button's position based on the scroll offset
+        adjusted_rect = self.rect.move(0, offset_y)
+        pygame.draw.rect(screen, self.active_color, adjusted_rect)
+        pygame.draw.rect(screen,colors["WHITE"], adjusted_rect, 2)  # Button border
+        text_surface = self.font.render(self.text, True,colors["BLUE"])
+        text_rect = text_surface.get_rect(center=adjusted_rect.center)
         screen.blit(text_surface, text_rect)
 
     def handle_event(self, event):

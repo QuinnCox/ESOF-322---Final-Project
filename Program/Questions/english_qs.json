@@ -1,0 +1,35 @@
+{
+  "title": "English Questions",
+  "questions": [
+    {
+      "question": "Which word is a synonym for 'happy'?",
+      "answers": [
+        "Sad",
+        "Joyful",
+        "Angry",
+        "Tired"
+      ],
+      "correct_answer": "Joyful"
+    },
+    {
+      "question": "Which word is a noun?",
+      "answers": [
+        "Quickly",
+        "Run",
+        "Happiness",
+        "Blue"
+      ],
+      "correct_answer": "Happiness"
+    },
+    {
+      "question": "What is the antonym of 'hot'?",
+      "answers": [
+        "Warm",
+        "Cold",
+        "Lukewarm",
+        "Scalding"
+      ],
+      "correct_answer": "Cold"
+    }
+  ]
+}

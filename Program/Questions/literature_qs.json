@@ -1,0 +1,35 @@
+{
+  "title": "Literature Questions",
+  "questions": [
+    {
+      "question": "Who wrote 'Romeo and Juliet'?",
+      "answers": [
+        "William Wordsworth",
+        "William Shakespeare",
+        "Jane Austen",
+        "Charles Dickens"
+      ],
+      "correct_answer": "William Shakespeare"
+    },
+    {
+      "question": "What is the term for a long narrative poem?",
+      "answers": [
+        "Sonnet",
+        "Epic",
+        "Limerick",
+        "Ode"
+      ],
+      "correct_answer": "Epic"
+    },
+    {
+      "question": "Who wrote 'Pride and Prejudice'?",
+      "answers": [
+        "Emily Bront\u00eb",
+        "Charles Dickens",
+        "Jane Austen",
+        "George Eliot"
+      ],
+      "correct_answer": "Jane Austen"
+    }
+  ]
+}

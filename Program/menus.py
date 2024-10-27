@@ -6,14 +6,15 @@ from colors import colors
 class Menu:
     def __init__(self, screen):
         self.menu_screen = screen
-
-    
+   
 class Main_Menu(Menu):
     def __init__(self, screen):
         super().__init__(screen)
         
         # color backgounrd
-        self.menu_screen.fill(colors['LIGHT_GRAY'])
+        self.background_color = colors['LIGHT_GRAY']
+        self.menu_screen.fill(self.background_color)
+
 
         self.title_font = pygame.font.SysFont('Comic-Sans', 60)  # 60 is the font size
         self.title_text = self.title_font.render("QUIZ BEAST", True, colors['WHITE'])  # Render the title text
@@ -35,10 +36,12 @@ class Main_Menu(Menu):
         self.questions_btn.draw(self.menu_screen)
         self.scoreboard_btn.draw(self.menu_screen)
 
+    def get_color(self):
+        return self.background_color
+
     def handle_event(self, event):
         pass
                     
-
     def on_question_btn_click(self, event):
         return self.questions_btn.handle_event(event)
     
@@ -50,13 +53,18 @@ class Quiz_Menu(Menu):
     def __init__(self, screen):
         super().__init__(screen)
 
-        screen.fill(colors['LIGHT_BLUE'])
+        self.background_color = colors['LIGHT_BLUE']
+        screen.fill(self.background_color)
         self.main_menu_btn = buttons.Button("MENU",80, 600, 150, 50, colors['RED'], colors['DARK_RED'], self.on_main_menu_click)
 
     def draw(self):
         self.main_menu_btn.draw(self.menu_screen)
         
 
+
+    def get_color(self):
+        return self.background_color
+        
     def handle_event(self, event):
         pass
 
@@ -72,10 +80,51 @@ class Scoreboard_Menu(Menu):
 
     def draw(self):
         self.main_menu_btn.draw(self.menu_screen)
-        
 
+    def get_color(self):
+        return self.backgorund_color
+        
     def handle_event(self, event):
         pass
 
     def on_main_menu_click(self, event):
         return self.main_menu_btn.handle_event(event)
+
+class ScrollableMenu:
+    def __init__(self, items, screen, button_width=400, button_height=75, spacing=10):
+        self.items = items
+        self.screen = screen
+        self.button_width = button_width
+        self.button_height = button_height
+        self.spacing = spacing
+        self.scroll_y = 0
+        self.scroll_amount = self.button_height // 100  # Set a smaller scroll amount
+        # Create Button objects instead of pygame.Rect
+        self.scroll_buttons = [
+            buttons.Button(text=item, x=200, y=50 + i * (button_height + spacing), width=button_width, height=button_height, active_color=colors['PURPLE'], inactive_color=colors["DARK_PURPLE"] )
+            for i, item in enumerate(items)
+        ]
+
+        self.menu_height = len(self.items) * (self.button_height + self.spacing)
+
+    def scroll(self, direction):
+        # Calculate maximum scroll amount to prevent buttons from appearing cut-off at the bottom
+        max_scroll = -(self.menu_height - self.screen.get_height()) + 400
+        
+        if direction == "up":
+            self.scroll_y = min(self.scroll_y +  self.scroll_amount, 0)
+        elif direction == "down":
+            self.scroll_y = max(self.scroll_y -  self.scroll_amount, max_scroll) 
+
+    def draw(self):
+        # Draw each button with the adjusted position based on scroll offset
+        for button in self.scroll_buttons:
+            if 0 < button.rect.bottom + self.scroll_y < self.screen.get_height():  # Only draw visible buttons
+                button.scroll_draw(self.screen, offset_y=self.scroll_y)
+
+    def handle_click(self, mouse_pos):
+        # Check if any button is clicked after adjusting for scroll offset
+        for i, button in enumerate(self.buttons):
+            if button.is_clicked(mouse_pos, offset_y=self.scroll_y):
+                return i  # Return the index of the clicked button
+        return None

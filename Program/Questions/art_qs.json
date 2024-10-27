@@ -1,0 +1,35 @@
+{
+  "title": "Art Questions",
+  "questions": [
+    {
+      "question": "Who painted the Mona Lisa?",
+      "answers": [
+        "Vincent van Gogh",
+        "Leonardo da Vinci",
+        "Pablo Picasso",
+        "Claude Monet"
+      ],
+      "correct_answer": "Leonardo da Vinci"
+    },
+    {
+      "question": "Which art movement is Salvador Dali associated with?",
+      "answers": [
+        "Cubism",
+        "Impressionism",
+        "Surrealism",
+        "Expressionism"
+      ],
+      "correct_answer": "Surrealism"
+    },
+    {
+      "question": "What is the primary color that, combined with yellow, makes green?",
+      "answers": [
+        "Blue",
+        "Red",
+        "Purple",
+        "Orange"
+      ],
+      "correct_answer": "Blue"
+    }
+  ]
+}

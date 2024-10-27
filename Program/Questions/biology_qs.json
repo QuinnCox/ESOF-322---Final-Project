@@ -1,0 +1,35 @@
+{
+  "title": "Biology Questions",
+  "questions": [
+    {
+      "question": "What is the powerhouse of the cell?",
+      "answers": [
+        "Nucleus",
+        "Mitochondria",
+        "Ribosome",
+        "Chloroplast"
+      ],
+      "correct_answer": "Mitochondria"
+    },
+    {
+      "question": "What process do plants use to make food?",
+      "answers": [
+        "Respiration",
+        "Photosynthesis",
+        "Fermentation",
+        "Digestion"
+      ],
+      "correct_answer": "Photosynthesis"
+    },
+    {
+      "question": "What type of blood cell is responsible for fighting infections?",
+      "answers": [
+        "Red blood cell",
+        "White blood cell",
+        "Platelet",
+        "Plasma"
+      ],
+      "correct_answer": "White blood cell"
+    }
+  ]
+}

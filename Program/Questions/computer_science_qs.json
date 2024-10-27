@@ -1,0 +1,35 @@
+{
+  "title": "Computer Science Questions",
+  "questions": [
+    {
+      "question": "What does 'HTML' stand for?",
+      "answers": [
+        "HyperText Markup Language",
+        "HighText Machine Language",
+        "HyperLoop Machine Language",
+        "HyperText Markdown Language"
+      ],
+      "correct_answer": "HyperText Markup Language"
+    },
+    {
+      "question": "Which data structure uses the LIFO principle?",
+      "answers": [
+        "Queue",
+        "Stack",
+        "Array",
+        "Linked List"
+      ],
+      "correct_answer": "Stack"
+    },
+    {
+      "question": "What does 'CPU' stand for?",
+      "answers": [
+        "Central Processing Unit",
+        "Central Performance Unit",
+        "Computer Processing Unit",
+        "Core Processing Unit"
+      ],
+      "correct_answer": "Central Processing Unit"
+    }
+  ]
+}

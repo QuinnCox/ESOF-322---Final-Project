@@ -1,0 +1,35 @@
+{
+  "title": "Physical Education Questions",
+  "questions": [
+    {
+      "question": "What is the term for a score in soccer?",
+      "answers": [
+        "Run",
+        "Basket",
+        "Goal",
+        "Hit"
+      ],
+      "correct_answer": "Goal"
+    },
+    {
+      "question": "How many players are on a standard basketball team?",
+      "answers": [
+        "5",
+        "7",
+        "11",
+        "9"
+      ],
+      "correct_answer": "5"
+    },
+    {
+      "question": "Which muscle is primarily used in a bicep curl?",
+      "answers": [
+        "Triceps",
+        "Biceps",
+        "Quadriceps",
+        "Deltoids"
+      ],
+      "correct_answer": "Biceps"
+    }
+  ]
+}

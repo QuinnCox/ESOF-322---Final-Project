@@ -1,0 +1,35 @@
+{
+  "title": "Geography Questions",
+  "questions": [
+    {
+      "question": "What is the capital of France?",
+      "answers": [
+        "Berlin",
+        "Madrid",
+        "Paris",
+        "Rome"
+      ],
+      "correct_answer": "Paris"
+    },
+    {
+      "question": "Which continent is Australia located in?",
+      "answers": [
+        "Africa",
+        "Asia",
+        "Europe",
+        "Australia"
+      ],
+      "correct_answer": "Australia"
+    },
+    {
+      "question": "What is the largest ocean on Earth?",
+      "answers": [
+        "Atlantic Ocean",
+        "Indian Ocean",
+        "Arctic Ocean",
+        "Pacific Ocean"
+      ],
+      "correct_answer": "Pacific Ocean"
+    }
+  ]
+}

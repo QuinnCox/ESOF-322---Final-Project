@@ -1,0 +1,35 @@
+{
+  "title": "Music Questions",
+  "questions": [
+    {
+      "question": "What is the term for the speed of a piece of music?",
+      "answers": [
+        "Melody",
+        "Tempo",
+        "Harmony",
+        "Pitch"
+      ],
+      "correct_answer": "Tempo"
+    },
+    {
+      "question": "Who composed the Four Seasons?",
+      "answers": [
+        "Mozart",
+        "Beethoven",
+        "Vivaldi",
+        "Bach"
+      ],
+      "correct_answer": "Vivaldi"
+    },
+    {
+      "question": "What is the lowest vocal range for male voices?",
+      "answers": [
+        "Tenor",
+        "Baritone",
+        "Bass",
+        "Alto"
+      ],
+      "correct_answer": "Bass"
+    }
+  ]
+}

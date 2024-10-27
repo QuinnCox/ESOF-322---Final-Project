@@ -1,0 +1,35 @@
+{
+  "title": "Physics Questions",
+  "questions": [
+    {
+      "question": "What is the force that pulls objects toward Earth?",
+      "answers": [
+        "Magnetism",
+        "Electricity",
+        "Gravity",
+        "Friction"
+      ],
+      "correct_answer": "Gravity"
+    },
+    {
+      "question": "What is the unit of electrical resistance?",
+      "answers": [
+        "Volt",
+        "Ampere",
+        "Ohm",
+        "Watt"
+      ],
+      "correct_answer": "Ohm"
+    },
+    {
+      "question": "Who developed the theory of relativity?",
+      "answers": [
+        "Isaac Newton",
+        "Albert Einstein",
+        "Galileo Galilei",
+        "Nikola Tesla"
+      ],
+      "correct_answer": "Albert Einstein"
+    }
+  ]
+}
