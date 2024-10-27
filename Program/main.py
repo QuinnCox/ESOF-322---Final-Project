@@ -51,12 +51,6 @@ def quiz_selection_loop(screen):
     running = True
     clock = pygame.time.Clock()
 
-    question_data = None
-
-    font = pygame.font.Font(None, 36)
-    item_height = 40  # Space taken by each item
-    scroll_y = 0      # Track how much we have scrolled
-
     # List all files in a directory
     filenames = [f for f in os.listdir("Program/Questions")]
     quiz_titles = []
@@ -71,6 +65,9 @@ def quiz_selection_loop(screen):
     scroll_menu = menus.Scrollable_Menu(quiz_titles, screen)
 
     while running:
+        mouse_pos = pygame.mouse.get_pos()
+        scroll_menu.handle_scroll_hover(mouse_pos)  # Check hover on every frame
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return EXIT  # Exit the game
@@ -78,9 +75,13 @@ def quiz_selection_loop(screen):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:  # Left mouse button
                     # Get the mouse position when clicked
-                    mouse_pos = event.pos
                     
                     # Check if the button is pressed
+
+                    clicked_index = scroll_menu.handle_click(event)
+                    if clicked_index is not None:
+                        print(f"Button clicked")
+
                     if quiz_selec_menu.on_main_menu_click(event):
                         screen.fill(colors['WHITE'])
                         return MAIN_MENU

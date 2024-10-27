@@ -103,7 +103,7 @@ class Scrollable_Menu:
         self.scroll_amount = self.button_height // 2  # Set a smaller scroll amount
         # Create Button objects instead of pygame.Rect
         self.scroll_buttons = [
-            buttons.Button(text=item, x=self.x, y=self.y + i * (button_height + spacing), width=button_width, height=button_height, active_color=colors['PURPLE'], inactive_color=colors["DARK_PURPLE"] )
+            buttons.Scroll_Button(text=item, x=self.x, y=self.y + i * (button_height + spacing), width=button_width, height=button_height, active_color=colors['PURPLE'], inactive_color=colors["DARK_PURPLE"] )
             for i, item in enumerate(items)
         ]
 
@@ -111,6 +111,7 @@ class Scrollable_Menu:
 
     def scroll(self, direction):
         # Calculate maximum scroll amount to prevent buttons from appearing cut-off at the bottom
+
         max_scroll = -(self.menu_height - self.screen.get_height()) - 75
         
         if direction == "up":
@@ -124,10 +125,22 @@ class Scrollable_Menu:
             if 0 < button.rect.bottom + self.scroll_y < self.screen.get_height():  # Only draw visible buttons
                 button.scroll_draw(self.screen, offset_y=self.scroll_y)
 
-    def handle_click(self, mouse_pos):
-        # Check if any button is clicked after adjusting for scroll offset
-        for i, button in enumerate(self.buttons):
-            if button.is_clicked(mouse_pos, offset_y=self.scroll_y):
+    def handle_scroll_hover(self, mouse_pos):
+        # Adjust mouse position based on scroll offset
+        adjusted_mouse_pos = (mouse_pos[0], mouse_pos[1] - self.scroll_y)
+        
+        # Update hover state for each button
+        for button in self.scroll_buttons:
+            button.is_hovered = button.check_hover(adjusted_mouse_pos)
+
+    def handle_click(self, event):
+        # Adjust the y position of the mouse based on scroll offset
+        adjusted_mouse_pos = (event.pos[0], event.pos[1] - self.scroll_y)
+        
+        # Check if any button is clicked with the adjusted mouse position
+        for i, button in enumerate(self.scroll_buttons):
+                          
+            if button.handle_scroll_click_event(adjusted_mouse_pos):
                 return i  # Return the index of the clicked button
         return None
     

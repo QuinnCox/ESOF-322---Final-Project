@@ -50,6 +50,9 @@ class Button:
             if self.rect.collidepoint(event.pos):  # Check if the click is inside the button rect
                 return True
 
+    def handle_scroll_click_event(self, mouse_pos):
+        return self.rect.collidepoint(mouse_pos)
+
     def check_hover(self, mouse_pos):
         # Check if the mouse is hovering over the button
         if self.rect.collidepoint(mouse_pos):
@@ -57,3 +60,8 @@ class Button:
         else:
             self.is_hovered = False
 
+
+class Scroll_Button(Button):
+    def __init__(self):
+        super().__init__()
+        pass
