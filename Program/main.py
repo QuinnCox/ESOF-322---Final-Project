@@ -68,7 +68,7 @@ def quiz_selection_loop(screen):
             file.close()
 
     quiz_selec_menu = menus.Quiz_Menu(screen)
-    scroll_menu = menus.ScrollableMenu(quiz_titles, screen)
+    scroll_menu = menus.Scrollable_Menu(quiz_titles, screen)
 
     while running:
         for event in pygame.event.get():
@@ -92,6 +92,8 @@ def quiz_selection_loop(screen):
                 elif event.button == 5:  # Scroll down
                     screen.fill(quiz_selec_menu.get_color())
                     scroll_menu.scroll("down")
+
+
 
         # Update the display
         scroll_menu.draw()

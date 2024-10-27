@@ -55,7 +55,7 @@ class Quiz_Menu(Menu):
 
         self.background_color = colors['LIGHT_BLUE']
         screen.fill(self.background_color)
-        self.main_menu_btn = buttons.Button("MENU",80, 600, 150, 50, colors['RED'], colors['DARK_RED'], self.on_main_menu_click)
+        self.main_menu_btn = buttons.Button("MENU",50, 600, 150, 50, colors['RED'], colors['DARK_RED'], self.on_main_menu_click)
 
     def draw(self):
         self.main_menu_btn.draw(self.menu_screen)
@@ -76,7 +76,7 @@ class Scoreboard_Menu(Menu):
         super().__init__(screen)
 
         screen.fill(colors['LIGHT_ORANGE'])
-        self.main_menu_btn = buttons.Button("MENU",80, 600, 150, 50, colors['RED'], colors['DARK_RED'], self.on_main_menu_click)
+        self.main_menu_btn = buttons.Button("MENU",50, 600, 150, 50, colors['RED'], colors['DARK_RED'], self.on_main_menu_click)
 
     def draw(self):
         self.main_menu_btn.draw(self.menu_screen)
@@ -90,18 +90,20 @@ class Scoreboard_Menu(Menu):
     def on_main_menu_click(self, event):
         return self.main_menu_btn.handle_event(event)
 
-class ScrollableMenu:
-    def __init__(self, items, screen, button_width=400, button_height=75, spacing=10):
+class Scrollable_Menu:
+    def __init__(self, items, screen,  x=250, y=50, button_width=400, button_height=75, spacing=10):
         self.items = items
         self.screen = screen
+        self.x = x  # New x-position parameter
+        self.y = y
         self.button_width = button_width
         self.button_height = button_height
         self.spacing = spacing
         self.scroll_y = 0
-        self.scroll_amount = self.button_height // 100  # Set a smaller scroll amount
+        self.scroll_amount = self.button_height // 2  # Set a smaller scroll amount
         # Create Button objects instead of pygame.Rect
         self.scroll_buttons = [
-            buttons.Button(text=item, x=200, y=50 + i * (button_height + spacing), width=button_width, height=button_height, active_color=colors['PURPLE'], inactive_color=colors["DARK_PURPLE"] )
+            buttons.Button(text=item, x=self.x, y=self.y + i * (button_height + spacing), width=button_width, height=button_height, active_color=colors['PURPLE'], inactive_color=colors["DARK_PURPLE"] )
             for i, item in enumerate(items)
         ]
 
@@ -109,12 +111,12 @@ class ScrollableMenu:
 
     def scroll(self, direction):
         # Calculate maximum scroll amount to prevent buttons from appearing cut-off at the bottom
-        max_scroll = -(self.menu_height - self.screen.get_height()) + 400
+        max_scroll = -(self.menu_height - self.screen.get_height()) - 75
         
         if direction == "up":
             self.scroll_y = min(self.scroll_y +  self.scroll_amount, 0)
         elif direction == "down":
-            self.scroll_y = max(self.scroll_y -  self.scroll_amount, max_scroll) 
+            self.scroll_y = max(self.scroll_y -  self.scroll_amount, max_scroll)
 
     def draw(self):
         # Draw each button with the adjusted position based on scroll offset
@@ -128,3 +130,8 @@ class ScrollableMenu:
             if button.is_clicked(mouse_pos, offset_y=self.scroll_y):
                 return i  # Return the index of the clicked button
         return None
+    
+    def on_scroll_btn_click(self, event):
+        for button in self.scroll_buttons:
+            if button.handle_event(event):
+                return True
