@@ -9,10 +9,14 @@ from colors import colors
 # Define constants for different game states
 MAIN_MENU = 'main_menu'
 QUIZ_SELECTION = 'quiz_selection'
+QUIZ_SESSION = "quiz_selection"
+ACTIVE_QUIZ = None
+QUIZ_DATA = None
 SCOREBOARD = 'scoreboard'
 EXIT = 'exit'
 
 def main_menu_loop(screen):
+    print("Main Menu loop")
     running = True
     clock = pygame.time.Clock()
 
@@ -48,20 +52,24 @@ def main_menu_loop(screen):
         clock.tick(60)
 
 def quiz_selection_loop(screen):
+    print("Quiz Selection loop")
     running = True
     clock = pygame.time.Clock()
 
     # List all files in a directory
     filenames = [f for f in os.listdir("Program/Questions")]
     quiz_titles = []
+    quiz_info = {}
 
     for filename in filenames:
         with open("Program/Questions/" + filename, 'r') as file:
             data = json.load(file)
             quiz_titles.append(data["title"])
+            quiz_info.update({data['title']: data['questions']})
             file.close()
 
-    quiz_selec_menu = menus.Quiz_Menu(screen)
+
+    quiz_selec_menu = menus.Quiz_Select_Menu(screen)
     scroll_menu = menus.Scrollable_Menu(quiz_titles, screen)
 
     while running:
@@ -79,8 +87,11 @@ def quiz_selection_loop(screen):
                     # Check if the button is pressed
 
                     clicked_index = scroll_menu.handle_click(mouse_pos)
-                    if clicked_index is not None:
-                        print(clicked_index)
+                    if clicked_index is not None:                       
+                        ACTIVE_QUIZ = clicked_index
+                        QUIZ_DATA = quiz_info[ACTIVE_QUIZ];
+                        print(QUIZ_DATA)
+                        return MAIN_MENU
 
                     if quiz_selec_menu.on_main_menu_click(event):
                         screen.fill(colors['WHITE'])
@@ -102,7 +113,45 @@ def quiz_selection_loop(screen):
         # Control the frame rate
         clock.tick(60)
 
+def active_quiz_loop(screen):
+    print("Active Quiz Loop")
+    running = True
+    clock = pygame.time.Clock()
+
+    # List all files in a directory
+    filenames = [f for f in os.listdir("Program/Questions")]
+    quiz_titles = []
+    data = None
+
+    for filename in filenames:
+        with open("Program/Questions/" + filename, 'r') as file:
+            data = json.load(file)
+            quiz_titles.append(data["title"])
+            file.close()
+
+
+    while running:
+        mouse_pos = pygame.mouse.get_pos()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return EXIT  # Exit the game
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:  # Left mouse button
+                    pass
+                    # Get the mouse position when clicked
+                    
+                    # Check if the button is presse
+
+
+        pygame.display.flip()
+
+        # Control the frame rate
+        clock.tick(60)
+
 def scoreboard_loop(screen):
+    print("Scoreboard Loop")
     running = True
     clock = pygame.time.Clock()
 
@@ -150,6 +199,8 @@ def main():
             game_state = quiz_selection_loop(screen)  # Run the quiz selection loop
         elif game_state == SCOREBOARD:
             game_state = scoreboard_loop(screen)  # Run the scoreboard loop
+        elif game_state == ACTIVE_QUIZ:
+            game_state = active_quiz_loop(screen)  # Run the scoreboard loop
 
     pygame.quit()
 

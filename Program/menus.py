@@ -49,7 +49,7 @@ class Main_Menu(Menu):
         return self.scoreboard_btn.handle_event(event)
     
 
-class Quiz_Menu(Menu):
+class Quiz_Select_Menu(Menu):
     def __init__(self, screen):
         super().__init__(screen)
 
@@ -114,6 +114,7 @@ class Scrollable_Menu:
         self.menu_height = len(self.items) * (self.button_height + self.spacing)
 
     def scroll(self, direction):
+        
         # Calculate maximum scroll amount to prevent buttons from appearing cut-off at the bottom
 
         max_scroll = -(self.menu_height - self.screen.get_height()) - 75
@@ -138,6 +139,6 @@ class Scrollable_Menu:
         # Check if any button is clicked with the adjusted mouse position
         for i, button in enumerate(self.scroll_buttons):
             if button.is_clicked(mouse_pos, offset_y=self.scroll_y):
-                return i  # Return the index of the clicked button
+                return button.text  # Return the index of the clicked button
         return None
     
