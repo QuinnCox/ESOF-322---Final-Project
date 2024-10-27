@@ -9,14 +9,13 @@ from colors import colors
 # Define constants for different game states
 MAIN_MENU = 'main_menu'
 QUIZ_SELECTION = 'quiz_selection'
-QUIZ_SESSION = "quiz_selection"
-ACTIVE_QUIZ = None
-QUIZ_DATA = None
+QUIZ_SESSION = 'quiz_selection'
+ACTIVE_QUIZS = []
+QUIZ_DATA = []
 SCOREBOARD = 'scoreboard'
 EXIT = 'exit'
 
 def main_menu_loop(screen):
-    print("Main Menu loop")
     running = True
     clock = pygame.time.Clock()
 
@@ -52,7 +51,6 @@ def main_menu_loop(screen):
         clock.tick(60)
 
 def quiz_selection_loop(screen):
-    print("Quiz Selection loop")
     running = True
     clock = pygame.time.Clock()
 
@@ -87,11 +85,10 @@ def quiz_selection_loop(screen):
                     # Check if the button is pressed
 
                     clicked_index = scroll_menu.handle_click(mouse_pos)
-                    if clicked_index is not None:                       
-                        ACTIVE_QUIZ = clicked_index
-                        QUIZ_DATA = quiz_info[ACTIVE_QUIZ];
-                        print(QUIZ_DATA)
-                        return MAIN_MENU
+                    if clicked_index is not None:                      
+                        ACTIVE_QUIZS.append(clicked_index)
+                        QUIZ_DATA.append(quiz_info[clicked_index])
+                        return QUIZ_SESSION
 
                     if quiz_selec_menu.on_main_menu_click(event):
                         screen.fill(colors['WHITE'])
@@ -114,21 +111,10 @@ def quiz_selection_loop(screen):
         clock.tick(60)
 
 def active_quiz_loop(screen):
-    print("Active Quiz Loop")
     running = True
     clock = pygame.time.Clock()
 
-    # List all files in a directory
-    filenames = [f for f in os.listdir("Program/Questions")]
-    quiz_titles = []
-    data = None
-
-    for filename in filenames:
-        with open("Program/Questions/" + filename, 'r') as file:
-            data = json.load(file)
-            quiz_titles.append(data["title"])
-            file.close()
-
+    active_quiz_menu = menus.Active_Quiz_Menu(screen, ACTIVE_QUIZS, QUIZ_DATA)
 
     while running:
         mouse_pos = pygame.mouse.get_pos()
@@ -139,19 +125,23 @@ def active_quiz_loop(screen):
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:  # Left mouse button
-                    pass
+
+                    if active_quiz_menu.on_main_menu_click(event):
+                        screen.fill(colors['WHITE'])
+                        ACTIVE_QUIZS.clear()
+                        QUIZ_DATA.clear()
+                        return MAIN_MENU
                     # Get the mouse position when clicked
                     
                     # Check if the button is presse
 
-
+        active_quiz_menu.draw()
         pygame.display.flip()
 
         # Control the frame rate
         clock.tick(60)
 
 def scoreboard_loop(screen):
-    print("Scoreboard Loop")
     running = True
     clock = pygame.time.Clock()
 
@@ -169,6 +159,7 @@ def scoreboard_loop(screen):
                     
                     # Check if the button is pressed
                     if scoreboard_menu.on_main_menu_click(event):
+                        
                         screen.fill(colors['WHITE'])
                         return MAIN_MENU
 
@@ -186,8 +177,6 @@ def main():
     pygame.init()
     screen = pygame.display.set_mode((1280, 720))
 
-
-
     # Start with the main menu state
     game_state = MAIN_MENU
 
@@ -195,11 +184,11 @@ def main():
     while game_state != EXIT:
         if game_state == MAIN_MENU:
             game_state = main_menu_loop(screen)  # Run the main menu loop
-        elif game_state == QUIZ_SELECTION:
+        if game_state == QUIZ_SELECTION:
             game_state = quiz_selection_loop(screen)  # Run the quiz selection loop
-        elif game_state == SCOREBOARD:
+        if game_state == SCOREBOARD:
             game_state = scoreboard_loop(screen)  # Run the scoreboard loop
-        elif game_state == ACTIVE_QUIZ:
+        if game_state == QUIZ_SESSION:
             game_state = active_quiz_loop(screen)  # Run the scoreboard loop
 
     pygame.quit()
