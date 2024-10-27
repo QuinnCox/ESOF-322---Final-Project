@@ -101,7 +101,13 @@ class Scrollable_Menu:
         self.scroll_amount = self.button_height // 2  # Set a smaller scroll amount
         # Create Button objects instead of pygame.Rect
         self.scroll_buttons = [
-            buttons.Scroll_Button(text=item, x=self.x, y=self.y + i * (button_height + spacing), min_width=button_width, height=button_height, active_color=colors["BLUE"], inactive_color=colors["DARK_BLUE"])
+            buttons.Scroll_Button(text=item, 
+                                    x=self.x, 
+                                    y=self.y + i * (button_height + spacing), 
+                                    min_width=button_width,
+                                    height=button_height, 
+                                    active_color=colors["BLUE"], 
+                                    inactive_color=colors["DARK_BLUE"])
             for i, item in enumerate(items)
         ]
 
@@ -126,18 +132,13 @@ class Scrollable_Menu:
     def handle_hover(self, mouse_pos):
         # Update hover state for each button based on the mouse position
         for button in self.scroll_buttons:
-            print(mouse_pos)
-            button.is_hovered = button.is_hovered_over(mouse_pos)
+            button.is_hovered = button.is_hovered_over(mouse_pos, offset_y=self.scroll_y)
 
-    def handle_click(self, event):
-        # Adjust the y position of the mouse based on scroll offset
-        adjusted_mouse_pos = (event.pos[0], event.pos[1] - self.scroll_y)
-        
+    def handle_click(self, mouse_pos):
         # Check if any button is clicked with the adjusted mouse position
         for i, button in enumerate(self.scroll_buttons):
-                          
-            if button.handle_scroll_click_event(adjusted_mouse_pos):
-                return button.text  # Return the index of the clicked button
+            if button.is_clicked(mouse_pos, offset_y=self.scroll_y):
+                return i  # Return the index of the clicked button
         return None
     
     def on_scroll_btn_click(self, event):

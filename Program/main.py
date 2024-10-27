@@ -78,7 +78,7 @@ def quiz_selection_loop(screen):
                     
                     # Check if the button is pressed
 
-                    clicked_index = scroll_menu.handle_click(event)
+                    clicked_index = scroll_menu.handle_click(mouse_pos)
                     if clicked_index is not None:
                         print(clicked_index)
 
