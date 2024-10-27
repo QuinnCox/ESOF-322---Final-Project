@@ -141,7 +141,3 @@ class Scrollable_Menu:
                 return i  # Return the index of the clicked button
         return None
     
-    def on_scroll_btn_click(self, event):
-        for button in self.scroll_buttons:
-            if button.handle_event(event):
-                return True
