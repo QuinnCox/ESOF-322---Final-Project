@@ -66,7 +66,7 @@ def quiz_selection_loop(screen):
 
     while running:
         mouse_pos = pygame.mouse.get_pos()
-        scroll_menu.handle_scroll_hover(mouse_pos)  # Check hover on every frame
+        scroll_menu.handle_hover(mouse_pos)  # Check hover on every frame
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -80,7 +80,7 @@ def quiz_selection_loop(screen):
 
                     clicked_index = scroll_menu.handle_click(event)
                     if clicked_index is not None:
-                        print(f"Button clicked")
+                        print(clicked_index)
 
                     if quiz_selec_menu.on_main_menu_click(event):
                         screen.fill(colors['WHITE'])
@@ -93,8 +93,6 @@ def quiz_selection_loop(screen):
                 elif event.button == 5:  # Scroll down
                     screen.fill(quiz_selec_menu.get_color())
                     scroll_menu.scroll("down")
-
-
 
         # Update the display
         scroll_menu.draw()

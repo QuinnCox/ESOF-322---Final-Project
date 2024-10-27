@@ -22,8 +22,8 @@ class Main_Menu(Menu):
         # Create a large rectangle header that spans the top of the screen
         self.header_rect = pygame.Rect(0, 0, self.menu_screen.get_width(), 100)  # Spans full width and 100px high
 
-        self.questions_btn = buttons.Button("QUIZ'S",540, 310, 200, 100, colors['GREEN'], colors['DARK_GREEN'], self.on_question_btn_click)
-        self.scoreboard_btn = buttons.Button("SCOREBOARD",760, 310, 300, 100, colors['CYAN'], colors['DARK_CYAN'], self.on_scoreboard_btn_click)
+        self.questions_btn = buttons.Button("QUIZ'S",540, 310, 200, 100,10, colors['GREEN'], colors['DARK_GREEN'], colors['BLACK'], self.on_question_btn_click)
+        self.scoreboard_btn = buttons.Button("SCOREBOARD",760, 310, 300, 100,10, colors['CYAN'], colors['DARK_CYAN'], colors['BLACK'], self.on_scoreboard_btn_click)
     
     def draw(self):
         # Draw the header rectangle
@@ -55,13 +55,11 @@ class Quiz_Menu(Menu):
 
         self.background_color = colors['LIGHT_BLUE']
         screen.fill(self.background_color)
-        self.main_menu_btn = buttons.Button("MENU",50, 600, 150, 50, colors['RED'], colors['DARK_RED'], self.on_main_menu_click)
+        self.main_menu_btn = buttons.Button("MENU",50, 600, 150, 50, 10, colors['RED'], colors['DARK_RED'], text_color=colors["WHITE"], action=self.on_main_menu_click)
 
     def draw(self):
         self.main_menu_btn.draw(self.menu_screen)
         
-
-
     def get_color(self):
         return self.background_color
         
@@ -76,7 +74,7 @@ class Scoreboard_Menu(Menu):
         super().__init__(screen)
 
         screen.fill(colors['LIGHT_ORANGE'])
-        self.main_menu_btn = buttons.Button("MENU",50, 600, 150, 50, colors['RED'], colors['DARK_RED'], self.on_main_menu_click)
+        self.main_menu_btn = buttons.Button("MENU",50, 600, 150, 50, 10, colors['RED'], colors['DARK_RED'], text_color=colors["WHITE"],action= self.on_main_menu_click)
 
     def draw(self):
         self.main_menu_btn.draw(self.menu_screen)
@@ -103,7 +101,7 @@ class Scrollable_Menu:
         self.scroll_amount = self.button_height // 2  # Set a smaller scroll amount
         # Create Button objects instead of pygame.Rect
         self.scroll_buttons = [
-            buttons.Scroll_Button(text=item, x=self.x, y=self.y + i * (button_height + spacing), width=button_width, height=button_height, active_color=colors['PURPLE'], inactive_color=colors["DARK_PURPLE"] )
+            buttons.Scroll_Button(text=item, x=self.x, y=self.y + i * (button_height + spacing), min_width=button_width, height=button_height, active_color=colors["BLUE"], inactive_color=colors["DARK_BLUE"])
             for i, item in enumerate(items)
         ]
 
@@ -123,15 +121,13 @@ class Scrollable_Menu:
         # Draw each button with the adjusted position based on scroll offset
         for button in self.scroll_buttons:
             if 0 < button.rect.bottom + self.scroll_y < self.screen.get_height():  # Only draw visible buttons
-                button.scroll_draw(self.screen, offset_y=self.scroll_y)
+                button.draw(self.screen, offset_y=self.scroll_y)
 
-    def handle_scroll_hover(self, mouse_pos):
-        # Adjust mouse position based on scroll offset
-        adjusted_mouse_pos = (mouse_pos[0], mouse_pos[1] - self.scroll_y)
-        
-        # Update hover state for each button
+    def handle_hover(self, mouse_pos):
+        # Update hover state for each button based on the mouse position
         for button in self.scroll_buttons:
-            button.is_hovered = button.check_hover(adjusted_mouse_pos)
+            print(mouse_pos)
+            button.is_hovered = button.is_hovered_over(mouse_pos)
 
     def handle_click(self, event):
         # Adjust the y position of the mouse based on scroll offset
@@ -141,7 +137,7 @@ class Scrollable_Menu:
         for i, button in enumerate(self.scroll_buttons):
                           
             if button.handle_scroll_click_event(adjusted_mouse_pos):
-                return i  # Return the index of the clicked button
+                return button.text  # Return the index of the clicked button
         return None
     
     def on_scroll_btn_click(self, event):
