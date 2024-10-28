@@ -174,6 +174,7 @@ def scoreboard_loop(screen):
         clock.tick(60)
 
 def main():
+
     pygame.init()
     screen = pygame.display.set_mode((1280, 720))
 
