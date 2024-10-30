@@ -32,3 +32,4 @@ Functions:
 Phase 1:
 Phase 2:
 Scope:
+![mr beat](https://github.com/user-attachments/assets/98918e42-f79b-4515-9530-31f8ee836c26)
