@@ -1,0 +1,24 @@
+User Story 1
+-User is on the title screen presented with a test selection choice.
+-User selects the "beast quiz"
+-User completes the quiz
+-User is shown results and leaderboard and is able to enter a 3 character identifier
+-User is shown the winning screen
+-User is taken back to title screen, and closes the program.
+
+User Story 2
+-User is on the title screen presented with a test selection choice.
+-User selects the "beast quiz"
+-User completes the quiz
+-User is shown results and leaderboard and is able to enter a 3 character identifier
+-User is shown the failure screen
+-User is taken back to title screen, and closes the program.
+
+User Story 3
+-User is on the title screen presented with a test selection choice.
+-User selects the "User created quiz"
+-User completes the quiz
+-User is shown results and leaderboard and is able to enter a 3 character identifier
+-User is shown the winning/losing screen
+-User is taken back to title screen, and closes the program.
+
