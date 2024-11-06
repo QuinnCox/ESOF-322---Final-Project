@@ -26,7 +26,7 @@ class Button:
         current_color = self.active_color if self.is_hovered else self.inactive_color
         
         # Draw the button
-        pygame.draw.rect(screen, current_color, self.rect)
+        pygame.draw.rect(screen, current_color, self.rect, border_radius=10)
         
         # Render and center the text
         text_surface = self.font.render(self.text, True, self.text_color)
