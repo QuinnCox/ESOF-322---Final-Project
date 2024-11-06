@@ -23,7 +23,7 @@ class Main_Menu(Menu):
         self.header_rect = pygame.Rect(0, 0, self.menu_screen.get_width(), 100)  # Spans full width and 100px high
 
         self.questions_btn = buttons.Button("QUIZ'S",540, 310, 200, 100,10, colors['GREEN'], colors['DARK_GREEN'], colors['BLACK'], self.on_question_btn_click)
-        self.scoreboard_btn = buttons.Button("SCOREBOARD",540, 310, 300, 100,10, colors['CYAN'], colors['DARK_CYAN'], colors['BLACK'], self.on_scoreboard_btn_click)
+        self.scoreboard_btn = buttons.Button("SCOREBOARD",485, 425, 300, 100,10, colors['CYAN'], colors['DARK_CYAN'], colors['BLACK'], self.on_scoreboard_btn_click)
     
     def draw(self):
         # Draw the header rectangle
