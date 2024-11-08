@@ -140,7 +140,7 @@ def active_quiz_loop(screen):
 
         # Control the frame rate
         clock.tick(60)
-#test
+        
 def scoreboard_loop(screen):
     running = True
     clock = pygame.time.Clock()

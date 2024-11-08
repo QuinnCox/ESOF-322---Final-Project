@@ -99,6 +99,8 @@ class Active_Quiz_Menu(Menu):
     def on_main_menu_click(self, event):
         return self.main_menu_btn.handle_event(event)
 
+
+
     
 class Scoreboard_Menu(Menu):
     def __init__(self, screen):
@@ -120,6 +122,8 @@ class Scoreboard_Menu(Menu):
 
     def on_main_menu_click(self, event):
         return self.main_menu_btn.handle_event(event)
+
+
 
 class Scrollable_Menu(Menu):
     def __init__(self, items, screen,  x=250, y=50, button_width=400, button_height=75, spacing=10):
