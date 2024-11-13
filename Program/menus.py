@@ -77,26 +77,18 @@ class Active_Quiz_Menu(Menu):
         self.quiz_title = quiz_title[0]
         self.font = pygame.font.SysFont('Comic-Sans', 40)
         self.padding = 20
-
         self.background_color = colors['LIGHT_GREEN']
         screen.fill(self.background_color)
-
         self.title_font = pygame.font.SysFont('Comic-Sans', 60)  # 60 is the font size
+        self.question_font = pygame.font.SysFont('Comic-Sans', 40)  # 60 is the font size
         self.title_text = self.title_font.render(str(self.quiz_title), True, colors['WHITE'])  # Render the title text
-        
+    
         # Create a large rectangle header that spans the top of the screen
         self.header_rect = pygame.Rect(0, 0, self.menu_screen.get_width(), 100)
 
-        # Calculate width based on text length
-        text_surface = self.font.render(quiz_data[0]['question'], True, colors["BLUE"])
-        text_width = text_surface.get_width()
-        self.width = max(text_width, text_width + 2 * self.padding)  # Set button width to fit text with padding
-        self.height = 20
-        self.question_rect = pygame.Rect((200,200), (self.width, self.height))
-
-
-
         self.main_menu_btn = buttons.Button("MENU",50, 600, 150, 50, 10, colors['RED'], colors['DARK_RED'], text_color=colors["WHITE"], action=self.on_main_menu_click)
+
+
 
     def draw(self):
         # Draw the header rectangle
@@ -108,7 +100,14 @@ class Active_Quiz_Menu(Menu):
         self.main_menu_btn.draw(self.menu_screen)
 
     def draw_question(self):
-        self.question_rect.draw(self.menu_screen)
+        question_text = self.question_font.render(self.quiz_data[0]['question'], True, colors["DARK_GREEN"])
+        question_width = question_text.get_width()      
+        width = max(question_width, question_width + 2 * self.padding)  # Set  width to fit text with padding
+        height = 150
+
+        question_rect = question_text.get_rect(center = (self.menu_screen.get_width() // 2, height))
+
+        self.menu_screen.blit(question_text,question_rect)
         pass
     
     def on_main_menu_click(self, event):
