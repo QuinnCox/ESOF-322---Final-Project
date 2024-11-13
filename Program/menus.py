@@ -1,6 +1,7 @@
 import pygame
 import buttons
 import inputs
+import imageio as iio
 from colors import colors 
 
 class Menu:
@@ -15,9 +16,11 @@ class Main_Menu(Menu):
         self.background_color = colors['LIGHT_GRAY']
         self.menu_screen.fill(self.background_color)
 
+        self.logo = iio.imread("logo.jpeg")
+
 
         self.title_font = pygame.font.SysFont('Comic-Sans', 60)  # 60 is the font size
-        self.title_text = self.title_font.render("QUIZ BEAST", True, colors['WHITE'])  # Render the title text
+        self.title_text = self.title_font.render(self.logo, True, colors['WHITE'])  # Render the title text
         
         # Create a large rectangle header that spans the top of the screen
         self.header_rect = pygame.Rect(0, 0, self.menu_screen.get_width(), 100)  # Spans full width and 100px high
