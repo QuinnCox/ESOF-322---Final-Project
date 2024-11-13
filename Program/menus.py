@@ -1,7 +1,6 @@
 import pygame
 import buttons
 import inputs
-import imageio as iio
 from colors import colors 
 
 class Menu:
@@ -16,12 +15,13 @@ class Main_Menu(Menu):
         self.background_color = colors['LIGHT_GRAY']
         self.menu_screen.fill(self.background_color)
 
-        self.logo = iio.imread("logo.jpeg")
-
-
-        self.title_font = pygame.font.SysFont('Comic-Sans', 60)  # 60 is the font size
-        self.title_text = self.title_font.render(self.logo, True, colors['WHITE'])  # Render the title text
+        self.logo = pygame.image.load("Program/logo.jpeg")
+        # Set the size for the image
+        DEFAULT_IMAGE_SIZE = (200, 200)
         
+        # Scale the image to your needed size
+        
+        self.logo = pygame.transform.scale(self.logo, DEFAULT_IMAGE_SIZE)
         # Create a large rectangle header that spans the top of the screen
         self.header_rect = pygame.Rect(0, 0, self.menu_screen.get_width(), 100)  # Spans full width and 100px high
 
@@ -33,8 +33,8 @@ class Main_Menu(Menu):
         pygame.draw.rect(self.menu_screen, colors['GRAY'], self.header_rect)  # Assuming you have a HEADER_COLOR defined
 
         # Center the title text in the header
-        title_rect = self.title_text.get_rect(center=(self.menu_screen.get_width() // 2, self.header_rect.height // 2))
-        self.menu_screen.blit(self.title_text, title_rect)
+        logo_rect = self.logo.get_rect(center=(self.menu_screen.get_width() // 2, self.header_rect.height // 2))
+        self.menu_screen.blit(self.logo, logo_rect)
 
         self.questions_btn.draw(self.menu_screen)
         self.scoreboard_btn.draw(self.menu_screen)
