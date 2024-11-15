@@ -16,12 +16,8 @@ class Main_Menu(Menu):
         self.menu_screen.fill(self.background_color)
 
         self.logo = pygame.image.load("Program/logo.jpeg")
-        # Set the size for the image
-        DEFAULT_IMAGE_SIZE = (200, 200)
         
-        # Scale the image to your needed size
-        
-        self.logo = pygame.transform.scale(self.logo, DEFAULT_IMAGE_SIZE)
+    
         # Create a large rectangle header that spans the top of the screen
         self.header_rect = pygame.Rect(0, 0, self.menu_screen.get_width(), 100)  # Spans full width and 100px high
 
@@ -33,7 +29,7 @@ class Main_Menu(Menu):
         pygame.draw.rect(self.menu_screen, colors['GRAY'], self.header_rect)  # Assuming you have a HEADER_COLOR defined
 
         # Center the title text in the header
-        logo_rect = self.logo.get_rect(center=(self.menu_screen.get_width() // 2, self.header_rect.height // 2))
+        logo_rect = self.logo.get_rect(center=(self.menu_screen.get_width() // 2, (self.header_rect.height // 2) + 40))
         self.menu_screen.blit(self.logo, logo_rect)
 
         self.questions_btn.draw(self.menu_screen)
@@ -91,6 +87,13 @@ class Active_Quiz_Menu(Menu):
 
         self.main_menu_btn = buttons.Button("MENU",50, 600, 150, 50, 10, colors['RED'], colors['DARK_RED'], text_color=colors["WHITE"], action=self.on_main_menu_click)
 
+        q_indx = self.quiz_data.index(self.quiz_data[0])
+        answers = self.quiz_data[q_indx]['answers']
+        self.answer_1 = buttons.Button(answers[0], self.menu_screen.get_width() // 4, self.menu_screen.get_height() // 4, 50, 50, 10, colors['RED'], colors['DARK_RED'], colors['WHITE'] )
+        self.answer_2 = buttons.Button(answers[1], self.menu_screen.get_width() // 1.5, self.menu_screen.get_height() // 4, 50, 50, 10, colors['RED'], colors['DARK_RED'], colors['WHITE'])
+        self.answer_3 = buttons.Button(answers[2], self.menu_screen.get_width() // 4, self.menu_screen.get_height() // 1.5, 50, 50, 10, colors['RED'], colors['DARK_RED'], colors['WHITE'])
+        self.answer_4 = buttons.Button(answers[3], self.menu_screen.get_width() // 1.5, self.menu_screen.get_height() // 1.5, 50, 50, 10, colors['RED'], colors['DARK_RED'], colors['WHITE'])
+        
 
 
     def draw(self):
@@ -111,7 +114,10 @@ class Active_Quiz_Menu(Menu):
         question_rect = question_text.get_rect(center = (self.menu_screen.get_width() // 2, height))
 
         self.menu_screen.blit(question_text,question_rect)
-        pass
+        self.answer_1.draw(self.menu_screen)
+        self.answer_2.draw(self.menu_screen)
+        self.answer_3.draw(self.menu_screen)
+        self.answer_4.draw(self.menu_screen)
     
     def on_main_menu_click(self, event):
         return self.main_menu_btn.handle_event(event)
