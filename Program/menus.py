@@ -89,10 +89,33 @@ class Active_Quiz_Menu(Menu):
 
         q_indx = self.quiz_data.index(self.quiz_data[0])
         answers = self.quiz_data[q_indx]['answers']
-        self.answer_1 = buttons.Button(answers[0], self.menu_screen.get_width() // 4, self.menu_screen.get_height() // 4, 50, 50, 10, colors['RED'], colors['DARK_RED'], colors['WHITE'] )
-        self.answer_2 = buttons.Button(answers[1], self.menu_screen.get_width() // 1.5, self.menu_screen.get_height() // 4, 50, 50, 10, colors['RED'], colors['DARK_RED'], colors['WHITE'])
-        self.answer_3 = buttons.Button(answers[2], self.menu_screen.get_width() // 4, self.menu_screen.get_height() // 1.5, 50, 50, 10, colors['RED'], colors['DARK_RED'], colors['WHITE'])
-        self.answer_4 = buttons.Button(answers[3], self.menu_screen.get_width() // 1.5, self.menu_screen.get_height() // 1.5, 50, 50, 10, colors['RED'], colors['DARK_RED'], colors['WHITE'])
+
+
+        screen_width = self.menu_screen.get_width()
+
+        for i, answer in enumerate(answers):
+            # Get the text width and height
+            text_surface = self.question_font.render(answer, True, colors['WHITE'])
+            text_width = text_surface.get_width()
+            
+            # Calculate x-coordinate for centering
+            button_x = (screen_width - text_width) // 2  # Center horizontally
+            
+            # Adjust y-coordinate dynamically (you can space them evenly)
+            button_y = 200 + i * 100  # Example vertical spacing
+            
+            # Create the button
+            setattr(self, f"answer_{i+1}", buttons.Button(
+                answer,
+                button_x, 
+                button_y, 
+                text_width + 20, 
+                70,  # Adjust width/height padding as needed
+                10,
+                colors['RED'], 
+                colors['DARK_RED'], 
+                colors['WHITE']
+            ))
         
 
 
