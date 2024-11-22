@@ -89,6 +89,7 @@ class Active_Quiz_Menu(Menu):
 
         q_indx = self.quiz_data.index(self.quiz_data[0])
         answers = self.quiz_data[q_indx]['answers']
+        self.answer_buttons = []
 
 
         screen_width = self.menu_screen.get_width()
@@ -105,7 +106,9 @@ class Active_Quiz_Menu(Menu):
             button_y = 200 + i * 100  # Example vertical spacing
             
             # Create the button
-            setattr(self, f"answer_{i+1}", buttons.Button(
+
+
+            self.answer_buttons.append(setattr(self, f"answer_{i+1}", buttons.Button(
                 answer,
                 button_x, 
                 button_y, 
@@ -115,7 +118,7 @@ class Active_Quiz_Menu(Menu):
                 colors['RED'], 
                 colors['DARK_RED'], 
                 colors['WHITE']
-            ))
+            )))
         
 
 
@@ -137,6 +140,7 @@ class Active_Quiz_Menu(Menu):
         question_rect = question_text.get_rect(center = (self.menu_screen.get_width() // 2, height))
 
         self.menu_screen.blit(question_text,question_rect)
+
         self.answer_1.draw(self.menu_screen)
         self.answer_2.draw(self.menu_screen)
         self.answer_3.draw(self.menu_screen)
@@ -144,6 +148,17 @@ class Active_Quiz_Menu(Menu):
     
     def on_main_menu_click(self, event):
         return self.main_menu_btn.handle_event(event)
+
+    def on_answer_click(self, event):
+        if self.answer_1.handle_event(event):
+            print("1")
+        elif self.answer_2.handle_event(event):
+            print("2")
+        elif self.answer_3.handle_event(event):
+            print("3")
+        elif self.answer_4.handle_event(event):
+            print("4")
+        
 
 
 

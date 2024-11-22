@@ -134,9 +134,9 @@ def active_quiz_loop(screen):
                         ACTIVE_QUIZS.clear()
                         QUIZ_DATA.clear()
                         return MAIN_MENU
-                    # Get the mouse position when clicked
                     
-                    # Check if the button is presse
+                    if active_quiz_menu.on_answer_click(event):
+                        pass
 
 
         active_quiz_menu.draw()
