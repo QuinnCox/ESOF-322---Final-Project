@@ -117,7 +117,8 @@ def active_quiz_loop(screen):
 
     active_quiz_menu = menus.Active_Quiz_Menu(screen, ACTIVE_QUIZS, QUIZ_DATA)
 
-    num_questions = range(len(QUIZ_DATA[0]))
+    num_questions = len(QUIZ_DATA[0])
+    q_num = 0
 
     while running:
         mouse_pos = pygame.mouse.get_pos()
@@ -135,12 +136,18 @@ def active_quiz_loop(screen):
                         QUIZ_DATA.clear()
                         return MAIN_MENU
                     
+                    if q_num == num_questions - 1:
+                        screen.fill(colors['WHITE'])
+                        ACTIVE_QUIZS.clear()
+                        QUIZ_DATA.clear()
+                        return MAIN_MENU
+                        
                     if active_quiz_menu.on_answer_click(event):
-                        pass
+                        q_num = active_quiz_menu.next_question(q_num)
 
 
         active_quiz_menu.draw()
-        active_quiz_menu.draw_question()
+        active_quiz_menu.draw_question(q_num)
         pygame.display.flip()
 
         # Control the frame rate

@@ -7,6 +7,9 @@ class Menu:
     def __init__(self, screen):
         self.menu_screen = screen
    
+
+
+
 class Main_Menu(Menu):
     def __init__(self, screen):
         super().__init__(screen)
@@ -48,6 +51,9 @@ class Main_Menu(Menu):
         return self.scoreboard_btn.handle_event(event)
     
 
+
+
+
 class Quiz_Select_Menu(Menu):
     def __init__(self, screen):
         super().__init__(screen)
@@ -69,6 +75,9 @@ class Quiz_Select_Menu(Menu):
     def on_main_menu_click(self, event):
         return self.main_menu_btn.handle_event(event)
     
+
+
+
 class Active_Quiz_Menu(Menu):
     def __init__(self, screen, quiz_title, quiz_data):
         super().__init__(screen)
@@ -78,16 +87,30 @@ class Active_Quiz_Menu(Menu):
         self.padding = 20
         self.background_color = colors['LIGHT_GREEN']
         screen.fill(self.background_color)
+
+        # Create a large rectangle header that spans the top of the screen
+        self.header_rect = pygame.Rect(0, 0, self.menu_screen.get_width(), 100)
         self.title_font = pygame.font.SysFont('Comic-Sans', 60)  # 60 is the font size
         self.question_font = pygame.font.SysFont('Comic-Sans', 40)  # 60 is the font size
         self.title_text = self.title_font.render(str(self.quiz_title), True, colors['WHITE'])  # Render the title text
     
-        # Create a large rectangle header that spans the top of the screen
-        self.header_rect = pygame.Rect(0, 0, self.menu_screen.get_width(), 100)
-
         self.main_menu_btn = buttons.Button("MENU",50, 600, 150, 50, 10, colors['RED'], colors['DARK_RED'], text_color=colors["WHITE"], action=self.on_main_menu_click)
+        
+        
 
-        q_indx = self.quiz_data.index(self.quiz_data[0])
+
+    def draw(self):
+        # Draw the header rectangle
+        pygame.draw.rect(self.menu_screen, colors['GREEN'], self.header_rect)  # Assuming you have a HEADER_COLOR defined
+
+        # Center the title text in the header
+        title_rect = self.title_text.get_rect(center=(self.menu_screen.get_width() // 2, self.header_rect.height // 2))
+        self.menu_screen.blit(self.title_text, title_rect)
+        self.main_menu_btn.draw(self.menu_screen)
+
+    def draw_question(self, question_num):
+        curr_q = question_num
+        q_indx = self.quiz_data.index(self.quiz_data[curr_q])
         answers = self.quiz_data[q_indx]['answers']
         self.answer_buttons = []
 
@@ -115,24 +138,12 @@ class Active_Quiz_Menu(Menu):
                 text_width + 20, 
                 70,  # Adjust width/height padding as needed
                 10,
-                colors['RED'], 
-                colors['DARK_RED'], 
+                colors['DARK_BLUE'], 
+                colors['BLUE'], 
                 colors['WHITE']
             )))
-        
 
-
-    def draw(self):
-        # Draw the header rectangle
-        pygame.draw.rect(self.menu_screen, colors['GREEN'], self.header_rect)  # Assuming you have a HEADER_COLOR defined
-
-        # Center the title text in the header
-        title_rect = self.title_text.get_rect(center=(self.menu_screen.get_width() // 2, self.header_rect.height // 2))
-        self.menu_screen.blit(self.title_text, title_rect)
-        self.main_menu_btn.draw(self.menu_screen)
-
-    def draw_question(self):
-        question_text = self.question_font.render(self.quiz_data[0]['question'], True, colors["DARK_GREEN"])
+        question_text = self.question_font.render(self.quiz_data[q_indx]['question'], True, colors["DARK_GREEN"])
         question_width = question_text.get_width()      
         width = max(question_width, question_width + 2 * self.padding)  # Set  width to fit text with padding
         height = 150
@@ -152,17 +163,27 @@ class Active_Quiz_Menu(Menu):
     def on_answer_click(self, event):
         if self.answer_1.handle_event(event):
             print("1")
+            return True
         elif self.answer_2.handle_event(event):
             print("2")
+            return True
         elif self.answer_3.handle_event(event):
             print("3")
+            return True
         elif self.answer_4.handle_event(event):
             print("4")
+            return True
+        
+    def next_question(self, q_num):
+        self.menu_screen.fill(self.background_color)
+        self.curr_q = q_num + 1
+        print(self.curr_q)
+        return self.curr_q
+        
         
 
 
 
-    
 class Scoreboard_Menu(Menu):
     def __init__(self, screen):
         super().__init__(screen)
@@ -183,6 +204,7 @@ class Scoreboard_Menu(Menu):
 
     def on_main_menu_click(self, event):
         return self.main_menu_btn.handle_event(event)
+
 
 
 
