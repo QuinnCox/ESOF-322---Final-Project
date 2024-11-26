@@ -129,8 +129,7 @@ class Active_Quiz_Menu(Menu):
             button_y = 200 + i * 100  # Example vertical spacing
             
             # Create the button
-
-
+            
             self.answer_buttons.append(setattr(self, f"answer_{i+1}", buttons.Button(
                 answer,
                 button_x, 
