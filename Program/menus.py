@@ -8,8 +8,6 @@ class Menu:
         self.menu_screen = screen
    
 
-
-
 class Main_Menu(Menu):
     def __init__(self, screen):
         super().__init__(screen)
@@ -52,8 +50,6 @@ class Main_Menu(Menu):
     
 
 
-
-
 class Quiz_Select_Menu(Menu):
     def __init__(self, screen):
         super().__init__(screen)
@@ -75,7 +71,6 @@ class Quiz_Select_Menu(Menu):
     def on_main_menu_click(self, event):
         return self.main_menu_btn.handle_event(event)
     
-
 
 
 class Active_Quiz_Menu(Menu):
@@ -161,15 +156,27 @@ class Active_Quiz_Menu(Menu):
     def on_answer_click(self, event):
         q_indx = self.quiz_data.index(self.quiz_data[self.curr_q - 1])
         correct_ans = self.quiz_data[q_indx]['correct_answer']
-        print(correct_ans)
+            
+        print(self.curr_score)
         if self.answer_1.handle_event(event):
+            if self.answer_1.get_text() == correct_ans:
+                self.curr_score += 3
             return True
         elif self.answer_2.handle_event(event):
+            if self.answer_2.get_text() == correct_ans:
+                self.curr_score += 3
             return True
         elif self.answer_3.handle_event(event):
+            if self.answer_3.get_text() == correct_ans:
+                self.curr_score += 3
             return True
         elif self.answer_4.handle_event(event):
+            if self.answer_4.get_text() == correct_ans:
+                self.curr_score += 3
             return True
+
+    def submit_score(self):
+        pass
         
     def next_question(self, q_num):
         self.menu_screen.fill(self.background_color)
