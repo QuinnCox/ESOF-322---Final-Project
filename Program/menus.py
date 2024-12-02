@@ -81,6 +81,8 @@ class Quiz_Select_Menu(Menu):
 class Active_Quiz_Menu(Menu):
     def __init__(self, screen, quiz_title, quiz_data):
         super().__init__(screen)
+        self.curr_q = None
+        self.curr_score = 0
         self.quiz_data = quiz_data
         self.quiz_title = quiz_title[0]
         self.font = pygame.font.SysFont('Comic-Sans', 40)
@@ -95,8 +97,6 @@ class Active_Quiz_Menu(Menu):
         self.title_text = self.title_font.render(str(self.quiz_title), True, colors['WHITE'])  # Render the title text
     
         self.main_menu_btn = buttons.Button("MENU",50, 600, 150, 50, 10, colors['RED'], colors['DARK_RED'], text_color=colors["WHITE"], action=self.on_main_menu_click)
-        
-        
 
 
     def draw(self):
@@ -109,11 +109,10 @@ class Active_Quiz_Menu(Menu):
         self.main_menu_btn.draw(self.menu_screen)
 
     def draw_question(self, question_num):
-        curr_q = question_num
-        q_indx = self.quiz_data.index(self.quiz_data[curr_q])
+        self.curr_q = question_num
+        q_indx = self.quiz_data.index(self.quiz_data[self.curr_q - 1])
         answers = self.quiz_data[q_indx]['answers']
         self.answer_buttons = []
-
 
         screen_width = self.menu_screen.get_width()
 
@@ -160,23 +159,21 @@ class Active_Quiz_Menu(Menu):
         return self.main_menu_btn.handle_event(event)
 
     def on_answer_click(self, event):
+        q_indx = self.quiz_data.index(self.quiz_data[self.curr_q - 1])
+        correct_ans = self.quiz_data[q_indx]['correct_answer']
+        print(correct_ans)
         if self.answer_1.handle_event(event):
-            print("1")
             return True
         elif self.answer_2.handle_event(event):
-            print("2")
             return True
         elif self.answer_3.handle_event(event):
-            print("3")
             return True
         elif self.answer_4.handle_event(event):
-            print("4")
             return True
         
     def next_question(self, q_num):
         self.menu_screen.fill(self.background_color)
         self.curr_q = q_num + 1
-        print(self.curr_q)
         return self.curr_q
         
         

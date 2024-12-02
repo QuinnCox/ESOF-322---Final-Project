@@ -135,16 +135,16 @@ def active_quiz_loop(screen):
                         ACTIVE_QUIZS.clear()
                         QUIZ_DATA.clear()
                         return MAIN_MENU
+
+                    if active_quiz_menu.on_answer_click(event):
+                        q_num = active_quiz_menu.next_question(q_num)
                     
-                    if q_num == num_questions - 1:
+                    if q_num == num_questions:
                         screen.fill(colors['WHITE'])
                         ACTIVE_QUIZS.clear()
                         QUIZ_DATA.clear()
                         return MAIN_MENU
                         
-                    if active_quiz_menu.on_answer_click(event):
-                        q_num = active_quiz_menu.next_question(q_num)
-
 
         active_quiz_menu.draw()
         active_quiz_menu.draw_question(q_num)
