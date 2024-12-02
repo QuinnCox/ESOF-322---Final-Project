@@ -87,7 +87,8 @@ def quiz_selection_loop(screen):
                     clicked_index = scroll_menu.handle_click(mouse_pos)
                     if clicked_index is not None:                      
                         ACTIVE_QUIZS.append(clicked_index)
-                        QUIZ_DATA.append(quiz_info[clicked_index])
+                        for q in quiz_info[clicked_index]:
+                            QUIZ_DATA.append(q)
                         return QUIZ_SESSION
 
                     if quiz_selec_menu.on_main_menu_click(event):
@@ -116,6 +117,9 @@ def active_quiz_loop(screen):
 
     active_quiz_menu = menus.Active_Quiz_Menu(screen, ACTIVE_QUIZS, QUIZ_DATA)
 
+    num_questions = len(QUIZ_DATA[0])
+    q_num = 0
+
     while running:
         mouse_pos = pygame.mouse.get_pos()
 
@@ -131,16 +135,24 @@ def active_quiz_loop(screen):
                         ACTIVE_QUIZS.clear()
                         QUIZ_DATA.clear()
                         return MAIN_MENU
-                    # Get the mouse position when clicked
+
+                    if active_quiz_menu.on_answer_click(event):
+                        q_num = active_quiz_menu.next_question(q_num)
                     
-                    # Check if the button is presse
+                    if q_num == num_questions:
+                        screen.fill(colors['WHITE'])
+                        ACTIVE_QUIZS.clear()
+                        QUIZ_DATA.clear()
+                        return MAIN_MENU
+                        
 
         active_quiz_menu.draw()
+        active_quiz_menu.draw_question(q_num)
         pygame.display.flip()
 
         # Control the frame rate
         clock.tick(60)
-#test
+
 def scoreboard_loop(screen):
     running = True
     clock = pygame.time.Clock()
