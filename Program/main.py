@@ -140,6 +140,7 @@ def active_quiz_loop(screen):
                         q_num = active_quiz_menu.next_question(q_num)
                     
                     if q_num == num_questions:
+                        active_quiz_menu.submit_score()
                         screen.fill(colors['WHITE'])
                         ACTIVE_QUIZS.clear()
                         QUIZ_DATA.clear()

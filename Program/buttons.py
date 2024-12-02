@@ -47,6 +47,9 @@ class Button:
         else:
             self.is_hovered = False
 
+    def get_text(self):
+        return self.text
+
 
 class Scroll_Button(Button):
     def __init__(self, text, x,y, min_width=100, height=50, padding=20, inactive_color=(70, 130, 180), active_color=(100, 160, 210), text_color=(255, 255, 255), action=None):
