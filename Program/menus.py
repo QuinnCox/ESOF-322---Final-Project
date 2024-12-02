@@ -184,13 +184,28 @@ class Scoreboard_Menu(Menu):
     def __init__(self, screen):
         super().__init__(screen)
 
-        self.background_color = colors['LIGHT_ORANGE']
+        self.background_color = colors['LIGHT_GRAY']
         self.menu_screen.fill(self.background_color)
 
-        self.main_menu_btn = buttons.Button("MENU",50, 600, 150, 50, 10, colors['RED'], colors['DARK_RED'], text_color=colors["WHITE"],action= self.on_main_menu_click)
+        self.header_rect = pygame.Rect(0, 0, self.menu_screen.get_width(), 100)
+        pygame.draw.rect(self.menu_screen, colors['DARK_GRAY'], self.header_rect)
+        self.score_title_font = pygame.font.SysFont('Comic-Sans', 60)  # 60 is the font size
+        self.score_title_text = self.score_title_font.render("SCOREBOARD", True, colors['WHITE'])
+        title_rect = self.score_title_text.get_rect(center=(self.menu_screen.get_width() // 2, self.header_rect.height // 2))
+        self.menu_screen.blit(self.score_title_text, title_rect)
 
+        with open('Program/scores.json', 'r') as f:
+            data = json.load(f)
+
+        self.scores = data
+        self.score_font = pygame.font.SysFont('Comic-Sans', 40) 
+        self.score_text = self.score_title_font.render(str(self.scores), True, colors['WHITE'])
+
+        self.main_menu_btn = buttons.Button("MENU",50, 600, 150, 50, 10, colors['RED'], colors['DARK_RED'], text_color=colors["WHITE"],action= self.on_main_menu_click)
+    
     def draw(self):
         self.main_menu_btn.draw(self.menu_screen)
+#       self.scores
 
     def get_color(self):
         return self.backgorund_color
@@ -200,7 +215,6 @@ class Scoreboard_Menu(Menu):
 
     def on_main_menu_click(self, event):
         return self.main_menu_btn.handle_event(event)
-
 
 
 
