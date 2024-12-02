@@ -2,6 +2,7 @@ import pygame
 import buttons
 import inputs
 from colors import colors 
+import json
 
 class Menu:
     def __init__(self, screen):
@@ -19,7 +20,6 @@ class Main_Menu(Menu):
         self.menu_screen.fill(self.background_color)
 
         self.logo = pygame.image.load("Program/logo.jpeg")
-        
     
         # Create a large rectangle header that spans the top of the screen
         self.header_rect = pygame.Rect(0, 0, self.menu_screen.get_width(), 100)  # Spans full width and 100px high
@@ -101,7 +101,7 @@ class Active_Quiz_Menu(Menu):
 
     def draw(self):
         # Draw the header rectangle
-        pygame.draw.rect(self.menu_screen, colors['GREEN'], self.header_rect)  # Assuming you have a HEADER_COLOR defined
+        pygame.draw.rect(self.menu_screen, colors['GREY'], self.header_rect)  # Assuming you have a HEADER_COLOR defined
 
         # Center the title text in the header
         title_rect = self.title_text.get_rect(center=(self.menu_screen.get_width() // 2, self.header_rect.height // 2))
