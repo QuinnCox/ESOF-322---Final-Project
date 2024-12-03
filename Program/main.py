@@ -1,6 +1,7 @@
 import pygame
 #import pandas as pd
 #import numpy as np
+import inputs
 import os
 import json
 import menus
@@ -12,7 +13,9 @@ QUIZ_SELECTION = 'quiz_selection'
 QUIZ_SESSION = 'quiz_selection'
 ACTIVE_QUIZS = []
 QUIZ_DATA = []
+SCORE = []
 SCOREBOARD = 'scoreboard'
+SCORE_SUBMIT = 'score_submit'
 EXIT = 'exit'
 
 def main_menu_loop(screen):
@@ -121,8 +124,6 @@ def active_quiz_loop(screen):
     q_num = 0
 
     while running:
-        mouse_pos = pygame.mouse.get_pos()
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return EXIT  # Exit the game
@@ -140,15 +141,52 @@ def active_quiz_loop(screen):
                         q_num = active_quiz_menu.next_question(q_num)
                     
                     if q_num == num_questions:
-                        active_quiz_menu.submit_score()
+                        SCORE.append(active_quiz_menu.get_score())
                         screen.fill(colors['WHITE'])
                         ACTIVE_QUIZS.clear()
                         QUIZ_DATA.clear()
-                        return MAIN_MENU
-                        
+                        return SCORE_SUBMIT
+                                    
 
         active_quiz_menu.draw()
         active_quiz_menu.draw_question(q_num)
+        pygame.display.flip()
+
+        # Control the frame rate
+        clock.tick(60)
+
+def score_submit_loop(screen):
+    running = True
+    clock = pygame.time.Clock()
+
+    submit_score_menu = menus.Submit_Score_Menu(screen, SCORE[0])
+    inp_box = inputs.InputBox(screen, (screen.get_width() // 2) - 100, (screen.get_height() // 2) - 100, 200 ,50 , '')
+    SCORE.clear()
+
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return EXIT  # Exit the game
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:  # Left mouse button
+                    # Get the mouse position when clicked
+                    if submit_score_menu.on_main_menu_click(event):
+                        screen.fill(colors['WHITE'])
+                        return MAIN_MENU
+                    
+                    if inp_box.input_box.collidepoint(event.pos):
+                        inp_box.set_active()
+                    else:
+                        inp_box.set_not_active()
+
+
+
+        # Insert game logic here
+        submit_score_menu.draw()
+        inp_box.draw()
+
+        # Update the display
         pygame.display.flip()
 
         # Control the frame rate
@@ -202,6 +240,8 @@ def main():
             game_state = quiz_selection_loop(screen)  # Run the quiz selection loop
         if game_state == SCOREBOARD:
             game_state = scoreboard_loop(screen)  # Run the scoreboard loop
+        if game_state == SCORE_SUBMIT:
+            game_state = score_submit_loop(screen)  # Run the scoreboard loop
         if game_state == QUIZ_SESSION:
             game_state = active_quiz_loop(screen)  # Run the scoreboard loop
 

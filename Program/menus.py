@@ -1,6 +1,5 @@
 import pygame
 import buttons
-import inputs
 from colors import colors 
 import json
 
@@ -93,10 +92,12 @@ class Active_Quiz_Menu(Menu):
     
         self.main_menu_btn = buttons.Button("MENU",50, 600, 150, 50, 10, colors['RED'], colors['DARK_RED'], text_color=colors["WHITE"], action=self.on_main_menu_click)
 
+    def get_score(self):
+        return self.curr_score
 
     def draw(self):
         # Draw the header rectangle
-        pygame.draw.rect(self.menu_screen, colors['GREY'], self.header_rect)  # Assuming you have a HEADER_COLOR defined
+        pygame.draw.rect(self.menu_screen, colors['GRAY'], self.header_rect)  # Assuming you have a HEADER_COLOR defined
 
         # Center the title text in the header
         title_rect = self.title_text.get_rect(center=(self.menu_screen.get_width() // 2, self.header_rect.height // 2))
@@ -138,11 +139,9 @@ class Active_Quiz_Menu(Menu):
 
         question_text = self.question_font.render(self.quiz_data[q_indx]['question'], True, colors["DARK_GREEN"])
         question_width = question_text.get_width()      
-        width = max(question_width, question_width + 2 * self.padding)  # Set  width to fit text with padding
         height = 150
 
         question_rect = question_text.get_rect(center = (self.menu_screen.get_width() // 2, height))
-
         self.menu_screen.blit(question_text,question_rect)
 
         self.answer_1.draw(self.menu_screen)
@@ -156,36 +155,48 @@ class Active_Quiz_Menu(Menu):
     def on_answer_click(self, event):
         q_indx = self.quiz_data.index(self.quiz_data[self.curr_q - 1])
         correct_ans = self.quiz_data[q_indx]['correct_answer']
-            
-        print(self.curr_score)
+        
         if self.answer_1.handle_event(event):
             if self.answer_1.get_text() == correct_ans:
                 self.curr_score += 3
             return True
+        
         elif self.answer_2.handle_event(event):
             if self.answer_2.get_text() == correct_ans:
                 self.curr_score += 3
             return True
+        
         elif self.answer_3.handle_event(event):
             if self.answer_3.get_text() == correct_ans:
                 self.curr_score += 3
             return True
+        
         elif self.answer_4.handle_event(event):
             if self.answer_4.get_text() == correct_ans:
                 self.curr_score += 3
             return True
 
-    def submit_score(self):
-        pass
         
     def next_question(self, q_num):
         self.menu_screen.fill(self.background_color)
         self.curr_q = q_num + 1
         return self.curr_q
         
-        
 
+class Submit_Score_Menu(Menu):
+    def __init__(self, screen, score):
+        super().__init__(screen)   
+        self.background_color = colors['LIGHT_GRAY']
+        self.menu_screen.fill(self.background_color)  
+        self.user_score = score
 
+        self.main_menu_btn = buttons.Button("MENU",50, 600, 150, 50, 10, colors['RED'], colors['DARK_RED'], text_color=colors["WHITE"],action= self.on_main_menu_click)
+
+    def draw(self):
+        self.main_menu_btn.draw(self.menu_screen) 
+
+    def on_main_menu_click(self, event):
+        return self.main_menu_btn.handle_event(event)
 
 class Scoreboard_Menu(Menu):
     def __init__(self, screen):
@@ -201,8 +212,10 @@ class Scoreboard_Menu(Menu):
         title_rect = self.score_title_text.get_rect(center=(self.menu_screen.get_width() // 2, self.header_rect.height // 2))
         self.menu_screen.blit(self.score_title_text, title_rect)
 
-        with open('Program/scores.json', 'r') as f:
-            data = json.load(f)
+        with open('Program/scores.json', 'r') as file:
+            data = json.load(file)
+
+        file.close()
 
         self.scores = data
         self.score_font = pygame.font.SysFont('Comic-Sans', 40) 
@@ -248,6 +261,7 @@ class Scrollable_Menu(Menu):
                                     inactive_color=colors["DARK_BLUE"])
             for i, item in enumerate(items)
         ]
+
 
         self.menu_height = len(self.items) * (self.button_height + self.spacing)
 
