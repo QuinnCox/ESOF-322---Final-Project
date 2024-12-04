@@ -1,49 +1,33 @@
 import pygame
+from colors import colors 
 
 pygame.init()
 
-# Define colors
-COLOR_INACTIVE = pygame.Color('lightskyblue3')
-COLOR_ACTIVE = pygame.Color('dodgerblue2')
-FONT = pygame.font.Font(None, 32)
-
 class InputBox:
-    def __init__(self, x, y, w, h, text=''):
-        self.rect = pygame.Rect(x, y, w, h)
-        self.color = COLOR_INACTIVE
-        self.text = text
-        self.txt_surface = FONT.render(text, True, self.color)
+    def __init__(self, screen, x, y, w, h, text=''):
+        self.screen = screen
+        self.x_pos = x
+        self.y_pos = y
+        self.width = w
+        self.heigh = h
+        self.input_box = pygame.Rect(x, y, w, h)  # x, y, width, height
+        self.color_inactive = colors['BLACK']
+        self.color_active = colors['WHITE']
+        self.color = self.color_inactive
         self.active = False
+        self.font = pygame.font.SysFont('Comic-Sans', 40)
+        self.text = text
 
-    def handle_event(self, event):
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            # Toggle the active variable if the user clicks on the input box
-            if self.rect.collidepoint(event.pos):
-                self.active = not self.active
-            else:
-                self.active = False
-            # Change the color of the input box based on if it's active or not
-            self.color = COLOR_ACTIVE if self.active else COLOR_INACTIVE
+    def draw(self):
+        txt_surface = self.font.render(self.text, True, colors['BLACK'])
 
-        if event.type == pygame.KEYDOWN:
-            if self.active:
-                if event.key == pygame.K_RETURN:
-                    print(self.text)  # Can also be used to submit the input
-                    self.text = ''  # Clear the text box after submission
-                elif event.key == pygame.K_BACKSPACE:
-                    self.text = self.text[:-1]
-                else:
-                    self.text += event.unicode
-                # Re-render the text
-                self.txt_surface = FONT.render(self.text, True, self.color)
+        self.screen.blit(txt_surface, (self.x_pos + 5, self.y_pos + 5))
+        pygame.draw.rect(self.screen, self.color, self.input_box, 2)
 
-    def update(self):
-        # Resize the box if the text is too long
-        width = max(200, self.txt_surface.get_width() + 10)
-        self.rect.w = width
+    def set_not_active(self):
+        self.active = False
+        self.color = self.color_inactive
 
-    def draw(self, screen):
-        # Blit the text
-        screen.blit(self.txt_surface, (self.rect.x+5, self.rect.y+5))
-        # Blit the rect
-        pygame.draw.rect(screen, self.color, self.rect, 2)
+    def set_active(self):
+        self.active = True
+        self.color = self.color_active
