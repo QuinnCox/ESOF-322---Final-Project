@@ -22,7 +22,7 @@ class ScoreInputBox:
     def draw(self):
         txt_surface = self.font.render(self.text, True, colors['BLACK'])
 
-        self.screen.blit(txt_surface, (self.x_pos + 5, self.y_pos + 5))
+        self.screen.blit(txt_surface, (self.x_pos, self.y_pos))
         pygame.draw.rect(self.screen, self.color, self.input_box, 2)
 
     def set_not_active(self):

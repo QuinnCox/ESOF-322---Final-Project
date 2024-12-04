@@ -162,6 +162,7 @@ def score_submit_loop(screen):
     submit_score_menu = menus.Submit_Score_Menu(screen, SCORE[0])
     inp_box = inputs.ScoreInputBox(screen, (screen.get_width() // 2) - 100, (screen.get_height() // 2) - 100, 200 ,50 , '')
     text = ''
+    alph = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     SCORE.clear()
 
     while running:
@@ -188,8 +189,10 @@ def score_submit_loop(screen):
                         text = ""  # Clear the input box after Enter
                     elif event.key == pygame.K_BACKSPACE:
                         text = inp_box.back_space(text)
-                    else:
-                        text += event.unicode
+                    else:                             
+                        if event.unicode in alph:
+                            if len(text) < 3:
+                                text += event.unicode
 
                 inp_box.set_text(text)
 
