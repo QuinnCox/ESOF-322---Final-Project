@@ -3,8 +3,9 @@ from colors import colors
 
 pygame.init()
 
-class InputBox:
+class ScoreInputBox:
     def __init__(self, screen, x, y, w, h, text=''):
+        self.background_color = colors['LIGHT_GRAY']
         self.screen = screen
         self.x_pos = x
         self.y_pos = y
@@ -31,3 +32,14 @@ class InputBox:
     def set_active(self):
         self.active = True
         self.color = self.color_active
+
+    def get_active_state(self):
+        return self.active
+
+    def set_text(self, text):
+        self.text = text
+
+    def back_space(self, text):
+        self.screen.fill(self.background_color)  
+        self.text = text[:-1]
+        return self.text

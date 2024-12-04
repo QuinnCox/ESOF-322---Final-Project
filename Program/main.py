@@ -160,7 +160,8 @@ def score_submit_loop(screen):
     clock = pygame.time.Clock()
 
     submit_score_menu = menus.Submit_Score_Menu(screen, SCORE[0])
-    inp_box = inputs.InputBox(screen, (screen.get_width() // 2) - 100, (screen.get_height() // 2) - 100, 200 ,50 , '')
+    inp_box = inputs.ScoreInputBox(screen, (screen.get_width() // 2) - 100, (screen.get_height() // 2) - 100, 200 ,50 , '')
+    text = ''
     SCORE.clear()
 
     while running:
@@ -180,6 +181,17 @@ def score_submit_loop(screen):
                     else:
                         inp_box.set_not_active()
 
+            if event.type == pygame.KEYDOWN:
+                if inp_box.get_active_state():
+                    if event.key == pygame.K_RETURN:
+                        print(f"Input: {text}")
+                        text = ""  # Clear the input box after Enter
+                    elif event.key == pygame.K_BACKSPACE:
+                        text = inp_box.back_space(text)
+                    else:
+                        text += event.unicode
+
+                inp_box.set_text(text)
 
 
         # Insert game logic here
@@ -213,7 +225,6 @@ def scoreboard_loop(screen):
                         
                         screen.fill(colors['WHITE'])
                         return MAIN_MENU
-
 
         # Insert game logic here
 
