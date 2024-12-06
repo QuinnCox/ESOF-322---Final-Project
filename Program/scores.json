@@ -48,5 +48,25 @@
         "Inits": "CM",
         "Score": 9,
         "Quiz": "Music Questions"
+    },
+    {
+        "Inits": "DW",
+        "Score": 3,
+        "Quiz": "Psychology Questions"
+    },
+    {
+        "Inits": "DW",
+        "Score": 6,
+        "Quiz": "Physics Questions"
+    },
+    {
+        "Inits": "DW",
+        "Score": 9,
+        "Quiz": "Biology Questions"
+    },
+    {
+        "Inits": "DW",
+        "Score": 6,
+        "Quiz": "English Questions"
     }
 ]
