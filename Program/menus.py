@@ -23,7 +23,8 @@ class Main_Menu(Menu):
 
         self.questions_btn = buttons.Button("QUIZ'S",540, 310, 200, 100,10, colors['GREEN'], colors['DARK_GREEN'], colors['BLACK'], self.on_question_btn_click)
         self.scoreboard_btn = buttons.Button("SCOREBOARD",485, 425, 300, 100,10, colors['CYAN'], colors['DARK_CYAN'], colors['BLACK'], self.on_scoreboard_btn_click)
-    
+        self.quit_btn = buttons.Button("QUIT",50, 600, 150, 50, 10, colors['RED'], colors['DARK_RED'], colors['WHITE'], self.on_quit_btn_click)
+
     def draw(self):
         # Draw the header rectangle
         pygame.draw.rect(self.menu_screen, colors['GRAY'], self.header_rect)  # Assuming you have a HEADER_COLOR defined
@@ -34,6 +35,7 @@ class Main_Menu(Menu):
 
         self.questions_btn.draw(self.menu_screen)
         self.scoreboard_btn.draw(self.menu_screen)
+        self.quit_btn.draw(self.menu_screen)
 
     def get_color(self):
         return self.background_color
@@ -46,6 +48,9 @@ class Main_Menu(Menu):
     
     def on_scoreboard_btn_click(self, event):
         return self.scoreboard_btn.handle_event(event)
+    
+    def on_quit_btn_click(self, event):
+        return self.quit_btn.handle_event(event)
     
 
 

@@ -10,7 +10,7 @@ from colors import colors
 # Define constants for different game states
 MAIN_MENU = 'main_menu'
 QUIZ_SELECTION = 'quiz_selection'
-QUIZ_SESSION = 'quiz_selection'
+QUIZ_SESSION = 'quiz_session'
 ACTIVE_QUIZS = []
 QUIZ_DATA = []
 SCORE = []
@@ -42,6 +42,9 @@ def main_menu_loop(screen):
                     elif main_menu.on_scoreboard_btn_click(event):
                         screen.fill(colors['WHITE'])
                         return SCOREBOARD
+
+                    elif main_menu.on_quit_btn_click(event):
+                        quit()
             
         # Insert game logic here
         
