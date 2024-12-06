@@ -43,5 +43,10 @@
         "Inits": "CM",
         "Score": 9,
         "Quiz": "Computer Science Questions"
+    },
+    {
+        "Inits": "CM",
+        "Score": 9,
+        "Quiz": "Music Questions"
     }
 ]

@@ -271,8 +271,6 @@ class Scoreboard_Menu(Menu):
                 )
             )
 
-
-
         self.menu_height = len(self.items) * (self.button_height + self.spacing)
         self.main_menu_btn = buttons.Button("MENU",50, 600, 150, 50, 10, colors['RED'], colors['DARK_RED'], text_color=colors["WHITE"],action= self.on_main_menu_click)
     
