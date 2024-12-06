@@ -245,16 +245,34 @@ class Scoreboard_Menu(Menu):
         self.scroll_y = 0
         self.scroll_amount = self.button_height // 2  # Set a smaller scroll amount
         # Create Button objects instead of pygame.Rect
-        self.scroll_buttons = [
-            buttons.Scroll_Button(text=', '.join((str(item["Inits"]) ,  str(item["Quiz"]) , str(item["Score"]))) , 
-                                    x=self.x, 
-                                    y=self.y + i * (button_height + spacing), 
-                                    min_width=button_width,
-                                    height=button_height, 
-                                    active_color=colors["BLUE"], 
-                                    inactive_color=colors["DARK_BLUE"])
-            for i, item in enumerate(items)
-        ]
+        self.scroll_buttons = []
+
+
+
+        # Calculate the horizontal center position
+        for i, item in enumerate(items):
+            button_text = " ".join((
+                str(item["Inits"]),
+                str(item["Quiz"]).replace("Questions", ""),
+                str(item["Score"])
+            ))
+
+            # Dynamically calculate x to center buttons
+            button_x = (self.menu_screen.get_width() - button_width) // 2
+
+            # Create buttons and append to self.scroll_buttons
+            self.scroll_buttons.append(
+                buttons.Scroll_Button(
+                    text=button_text,
+                    x=button_x,  # Centered X position
+                    y=self.y + i * (button_height + spacing),
+                    min_width=button_width,
+                    height=button_height,
+                    active_color=colors["BLUE"],
+                    inactive_color=colors["DARK_BLUE"]
+                )
+            )
+
 
 
         self.menu_height = len(self.items) * (self.button_height + self.spacing)
