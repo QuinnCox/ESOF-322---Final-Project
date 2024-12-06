@@ -191,12 +191,16 @@ class Submit_Score_Menu(Menu):
         self.font = pygame.font.SysFont('Comic-Sans', 40)
         self.user_score = score
 
+        self.score_text = self.font.render(str(self.user_score), True, colors['BLACK'])
+        self.text_rect = pygame.Rect(self.menu_screen.get_width() // 2, self.menu_screen.get_width() // 1.5, 50, 50)
+
         self.main_menu_btn = buttons.Button("MENU",50, 600, 150, 50, 10, colors['RED'], colors['DARK_RED'], text_color=colors["WHITE"],action= self.on_main_menu_click)
 
     def draw(self):
-        text_surface = self.font.render(str(self.user_score), True, colors['BLACK'])
-        text_rect = text_surface.get_rect(center=self.menu_screen.get_width() // 2)
-        self.menu_screen.blit(text_surface, text_rect)
+
+        score_rect = self.score_text.get_rect(center=(self.menu_screen.get_width() // 2, self.menu_screen.get_height() // 1.3))
+        
+        self.menu_screen.blit(self.score_text, score_rect)
         self.main_menu_btn.draw(self.menu_screen) 
 
     def on_main_menu_click(self, event):
