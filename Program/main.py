@@ -143,7 +143,6 @@ def active_quiz_loop(screen):
                     if q_num == num_questions:
                         SCORE.append(active_quiz_menu.get_score())
                         screen.fill(colors['WHITE'])
-                        ACTIVE_QUIZS.clear()
                         QUIZ_DATA.clear()
                         return SCORE_SUBMIT
                                     
@@ -161,7 +160,7 @@ def score_submit_loop(screen):
 
     submit_score_menu = menus.Submit_Score_Menu(screen, SCORE[0])
     inp_box = inputs.ScoreInputBox(screen, (screen.get_width() // 2) - 100, (screen.get_height() // 2) - 100, 200 ,50 , '')
-    text = ''
+    inits = ''
     alph = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     SCORE.clear()
 
@@ -182,19 +181,52 @@ def score_submit_loop(screen):
                     else:
                         inp_box.set_not_active()
 
+                    if submit_score_menu.on_submit_score_click(event) and len(inits) != 0:
+                        file_name = "Program/scores.json"
+                        try:
+                            with open(file_name, "r") as file:
+                                data = json.load(file)
+                        except FileNotFoundError:
+                            # If the file doesn't exist, start with an empty list
+                            data = []
+
+                        if not isinstance(data, list):
+                            raise ValueError("Expected a list in the JSON file to append data.")
+                        
+                        user_score = submit_score_menu.get_score()
+                        rec = {"Inits": inits, "Score":user_score, "Quiz": ACTIVE_QUIZS[0]}
+                        
+                        found = False
+                        for entry in data:
+                            if entry.get("Inits") == rec["Inits"] and entry.get("Quiz") == rec["Quiz"]:
+                                entry.update(rec)  # Update existing entry
+                                found = True
+                                break
+
+                        # If no matching entry is found, add the new entry
+                        if not found:
+                            data.append(rec)
+
+                        with open(file_name, "w") as file:
+                            json.dump(data, file, indent=4)
+
+                        file.close()
+                        ACTIVE_QUIZS.clear()
+                        return SCOREBOARD
+
             if event.type == pygame.KEYDOWN:
                 if inp_box.get_active_state():
-                    if event.key == pygame.K_RETURN:
-                        print(f"Input: {text}")
-                        text = ""  # Clear the input box after Enter
-                    elif event.key == pygame.K_BACKSPACE:
-                        text = inp_box.back_space(text)
-                    else:                             
+                    if event.key == pygame.K_BACKSPACE:
+                        inits = inp_box.back_space(inits)
+                    else:                       
+                        
                         if event.unicode in alph:
-                            if len(text) < 3:
-                                text += event.unicode
+                            if len(inits) < 3:
+                                inits += event.unicode
 
-                inp_box.set_text(text)
+                inp_box.set_text(inits)
+
+            
 
 
         # Insert game logic here
@@ -211,7 +243,18 @@ def scoreboard_loop(screen):
     running = True
     clock = pygame.time.Clock()
 
-    scoreboard_menu = menus.Scoreboard_Menu(screen)
+    file_name = "Program/scores.json"
+    try:
+        with open(file_name, "r") as file:
+            data = json.load(file)
+                
+    except FileNotFoundError:
+        # If the file doesn't exist, start with an empty list
+        data = []
+
+    sorted_data = sorted(data, key=lambda obj: obj["Score"], reverse=True)
+
+    scoreboard_menu = menus.Scoreboard_Menu(items=sorted_data, screen=screen)
 
     while running:
         for event in pygame.event.get():
@@ -228,6 +271,14 @@ def scoreboard_loop(screen):
                         
                         screen.fill(colors['WHITE'])
                         return MAIN_MENU
+                    
+                elif event.button == 4:  # Scroll up
+                    screen.fill(scoreboard_menu.get_color())
+                    scoreboard_menu.scroll("up")
+
+                elif event.button == 5:  # Scroll down
+                    screen.fill(scoreboard_menu.get_color())
+                    scoreboard_menu.scroll("down")
 
         # Insert game logic here
 

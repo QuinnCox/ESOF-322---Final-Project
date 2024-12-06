@@ -195,48 +195,100 @@ class Submit_Score_Menu(Menu):
         self.text_rect = pygame.Rect(self.menu_screen.get_width() // 2, self.menu_screen.get_width() // 1.5, 50, 50)
 
         self.main_menu_btn = buttons.Button("MENU",50, 600, 150, 50, 10, colors['RED'], colors['DARK_RED'], text_color=colors["WHITE"],action= self.on_main_menu_click)
+        self.submit_btn = buttons.Button("SUBMIT",250, 600, 150, 50, 10, colors['ORANGE'], colors['DARK_ORANGE'], text_color=colors["WHITE"],action=None)
 
+
+
+    def get_score(self):
+        return self.user_score
+    
     def draw(self):
+        self.menu_screen.fill(self.background_color)
 
-        score_rect = self.score_text.get_rect(center=(self.menu_screen.get_width() // 2, self.menu_screen.get_height() // 1.3))
-        
+        score_rect = self.score_text.get_rect(center=(self.menu_screen.get_width() // 2, self.menu_screen.get_height() // 2 + 50))
+
+        score_lbl = self.font.render("SCORE", True, colors['BLACK'])
+
+        score_lbl_rect = score_lbl.get_rect(center=(self.menu_screen.get_width() // 2 , self.menu_screen.get_height() // 2 ))
+
+        self.menu_screen.blit(score_lbl,score_lbl_rect)
         self.menu_screen.blit(self.score_text, score_rect)
         self.main_menu_btn.draw(self.menu_screen) 
+        self.submit_btn.draw(self.menu_screen)
 
     def on_main_menu_click(self, event):
         return self.main_menu_btn.handle_event(event)
+    
+    def on_submit_score_click(self, event):
+        return self.submit_btn.handle_event(event)
 
 class Scoreboard_Menu(Menu):
-    def __init__(self, screen):
+    def __init__(self, items, screen,  x=250, y=100, button_width=400, button_height=75, spacing=10):
         super().__init__(screen)
 
         self.background_color = colors['LIGHT_GRAY']
         self.menu_screen.fill(self.background_color)
 
-        self.header_rect = pygame.Rect(0, 0, self.menu_screen.get_width(), 100)
-        pygame.draw.rect(self.menu_screen, colors['DARK_GRAY'], self.header_rect)
+
         self.score_title_font = pygame.font.SysFont('Comic-Sans', 60)  # 60 is the font size
-        self.score_title_text = self.score_title_font.render("SCOREBOARD", True, colors['WHITE'])
-        title_rect = self.score_title_text.get_rect(center=(self.menu_screen.get_width() // 2, self.header_rect.height // 2))
-        self.menu_screen.blit(self.score_title_text, title_rect)
+        self.score_title_text = self.score_title_font.render("SCOREBOARD", True, colors['BLACK'])
+        
+        self.header_rect = pygame.Rect(0, 0, self.menu_screen.get_width(), 100)
 
-        with open('Program/scores.json', 'r') as file:
-            data = json.load(file)
+        self.items = items
+        self.screen = screen
+        self.x = x  # New x-position parameter
+        self.y = y
+        self.button_width = button_width
+        self.button_height = button_height
+        self.spacing = spacing
+        self.scroll_y = 0
+        self.scroll_amount = self.button_height // 2  # Set a smaller scroll amount
+        # Create Button objects instead of pygame.Rect
+        self.scroll_buttons = [
+            buttons.Scroll_Button(text=', '.join((str(item["Inits"]) ,  str(item["Quiz"]) , str(item["Score"]))) , 
+                                    x=self.x, 
+                                    y=self.y + i * (button_height + spacing), 
+                                    min_width=button_width,
+                                    height=button_height, 
+                                    active_color=colors["BLUE"], 
+                                    inactive_color=colors["DARK_BLUE"])
+            for i, item in enumerate(items)
+        ]
 
-        file.close()
 
-        self.scores = data
-        self.score_font = pygame.font.SysFont('Comic-Sans', 40) 
-        self.score_text = self.score_title_font.render(str(self.scores), True, colors['WHITE'])
+        self.menu_height = len(self.items) * (self.button_height + self.spacing)
+
+        #self.scores = data
+        #self.score_font = pygame.font.SysFont('Comic-Sans', 40) 
+        #self.score_text = self.score_title_font.render(str(self.scores), True, colors['WHITE'])
 
         self.main_menu_btn = buttons.Button("MENU",50, 600, 150, 50, 10, colors['RED'], colors['DARK_RED'], text_color=colors["WHITE"],action= self.on_main_menu_click)
     
+    def scroll(self, direction):
+        
+        # Calculate maximum scroll amount to prevent buttons from appearing cut-off at the bottom
+
+        max_scroll = -(self.menu_height - self.screen.get_height()) - 200
+        
+        if direction == "up":
+            self.scroll_y = min(self.scroll_y +  self.scroll_amount, 0)
+        elif direction == "down":
+            self.scroll_y = max(self.scroll_y -  self.scroll_amount, max_scroll)
+
     def draw(self):
+        
+        title_rect = self.score_title_text.get_rect(center=(self.menu_screen.get_width() // 2, self.header_rect.height // 2))
+
+        self.menu_screen.blit(self.score_title_text,title_rect)
         self.main_menu_btn.draw(self.menu_screen)
-#       self.scores
+
+        for button in self.scroll_buttons:
+            if 0 < button.rect.bottom + self.scroll_y < self.screen.get_height():  # Only draw visible buttons
+                button.draw(self.screen, offset_y=self.scroll_y)
 
     def get_color(self):
-        return self.backgorund_color
+        return self.background_color
         
     def handle_event(self, event):
         pass

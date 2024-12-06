@@ -39,6 +39,9 @@ class ScoreInputBox:
     def set_text(self, text):
         self.text = text
 
+    def get_text(self):
+        return self.text
+
     def back_space(self, text):
         self.screen.fill(self.background_color)  
         self.text = text[:-1]

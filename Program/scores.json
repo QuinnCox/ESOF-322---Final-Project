@@ -1,3 +1,52 @@
-{
-    
-}
+[
+    {
+        "Inits": "COM",
+        "Score": 0,
+        "Quiz": "Chemistry Questions"
+    },
+    {
+        "Inits": "COM",
+        "Score": 0,
+        "Quiz": "Computer Science Questions"
+    },
+    {
+        "Inits": "DW",
+        "Score": 0,
+        "Quiz": "Art Questions"
+    },
+    {
+        "Inits": "COM",
+        "Score": 9,
+        "Quiz": "History Questions"
+    },
+    {
+        "Inits": "QC",
+        "Score": 9,
+        "Quiz": "Biology Questions"
+    },
+    {
+        "Inits": "C",
+        "Score": 9,
+        "Quiz": "Physics Questions"
+    },
+    {
+        "Inits": "COM",
+        "Score": 9,
+        "Quiz": "Psychology Questions"
+    },
+    {
+        "Inits": "CM",
+        "Score": 6,
+        "Quiz": "Literature Questions"
+    },
+    {
+        "Inits": "CM",
+        "Score": 9,
+        "Quiz": "Math Questions"
+    },
+    {
+        "Inits": "CM",
+        "Score": 9,
+        "Quiz": "Computer Science Questions"
+    }
+]
