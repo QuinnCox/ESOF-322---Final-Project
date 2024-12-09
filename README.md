@@ -5,6 +5,7 @@ A Repository Containing all Recourses for ESOF 322 Final Project
 - Quinn Cox
 - Conor Miller
 - Ave Coombe
+- Dylan Williams
 - Austin Wilson
 
 
